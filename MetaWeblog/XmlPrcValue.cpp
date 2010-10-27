@@ -1,6 +1,21 @@
 #include "XmlRpcValue.h"
 #include <tchar.h>
 
+#define XRDT_TAG_VALUE      L"value"
+#define XRDT_TAG_NIL        L"nil"
+#define XRDT_TAG_BOOLEAN    L"boolean"
+#define XRDT_TAG_INT        L"int"
+#define XRDT_TAG_I4         L"i4"
+#define XRDT_TAG_DOUBLE     L"double"
+#define XRDT_TAG_STRING     L"string"
+#define XRDT_TAG_DATETIME   L"dateTime.iso8601"
+#define XRDT_TAG_BASE64     L"base64"
+#define XRDT_TAG_ARRAY      L"array"
+#define XRDT_TAG_DATA       L"data"
+#define XRDT_TAG_STRUCT     L"struct"
+#define XRDT_TAG_MEMBER     L"member"
+#define XRDT_TAG_NAME       L"name"
+
 XmlRpcValue::XmlRpcValue()
     : m_type(XRDT_NIL), m_bool(false), m_int(0), m_double(0.0), m_string(nullptr),
       m_datetime(nullptr), m_base64(nullptr), m_array(nullptr), m_struct(nullptr)
@@ -290,40 +305,40 @@ XmlNodePtr XmlRpcValue::ToXml()
     switch (m_type)
     {
     case XRDT_BOOL:
-        pNode->SetTagName(L"boolean");
+        pNode->SetTagName(XRDT_TAG_BOOLEAN);
         pSubNode->SetValue(m_bool ? L"1" : L"0");
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_INT:
-        pNode->SetTagName(L"int");
+        pNode->SetTagName(XRDT_TAG_INT);
         _stprintf(BUFFER, _T("%d"), m_int);
         pSubNode->SetValue(BUFFER);
         pNode->SubNodes().PushBack(pSubNode);
         break;;
     case XRDT_DOUBLE:
-        pNode->SetTagName(L"double");
+        pNode->SetTagName(XRDT_TAG_DOUBLE);
         _stprintf(BUFFER, _T("%lf"), m_double);
         pSubNode->SetValue(BUFFER);
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_STRING:
-        pNode->SetTagName(L"string");
+        pNode->SetTagName(XRDT_TAG_STRING);
         pSubNode->SetValue(*m_string);
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_DATETIME:
-        pNode->SetTagName(L"dateTime.iso8601");
+        pNode->SetTagName(XRDT_TAG_DATETIME);
         pSubNode->SetValue(*m_datetime);
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_BASE64:
-        pNode->SetTagName(L"base64");
+        pNode->SetTagName(XRDT_TAG_BASE64);
         pSubNode->SetValue(L"");    // TODO
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_ARRAY:
-        pNode->SetTagName(L"array");
-        pSubNode->SetTagName(L"data");
+        pNode->SetTagName(XRDT_TAG_ARRAY);
+        pSubNode->SetTagName(XRDT_TAG_DATA);
         pSubNode->SetType(XmlNode::XML_NODE);
 
         for (XmlRpcArray::Iterator it = m_array->Begin(); it != m_array->End(); ++it)
@@ -334,15 +349,15 @@ XmlNodePtr XmlRpcValue::ToXml()
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_STRUCT:
-        pNode->SetTagName(L"struct");
+        pNode->SetTagName(XRDT_TAG_STRUCT);
 
         for (XmlRpcStruct::Iterator it = m_struct->Begin(); it != m_struct->End(); ++it)
         {
             XmlNodePtr pMember = new XmlNode;
-            pMember->SetTagName(L"member");
+            pMember->SetTagName(XRDT_TAG_MEMBER);
 
             XmlNodePtr pName = new XmlNode;
-            pName->SetTagName(L"name");
+            pName->SetTagName(XRDT_TAG_NAME);
 
             XmlNodePtr pNameValue = new XmlNode;
             pNameValue->SetType(XmlNode::XML_VALUE);
@@ -359,11 +374,65 @@ XmlNodePtr XmlRpcValue::ToXml()
         break;
     case XRDT_NIL:
     default:
-        pNode->SetTagName(L"nil");
+        pNode->SetTagName(XRDT_TAG_NIL);
         break;
     }
 
     pValue->SubNodes().PushBack(pNode);
     
     return pValue;
+}
+
+bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
+{
+    ClearValue();
+
+    if (pNode->GetType() != XmlNode::XML_NODE || pNode->GetTagName() != XRDT_TAG_VALUE || pNode->SubNodes().Size() != 1)
+    {
+        return false;
+    }
+
+    XmlNodePtr pSubNode = *pNode->SubNodes().Begin();
+
+    if (pSubNode->GetType() != XmlNode::XML_NODE)
+    {
+        return false;
+    }
+
+    xl::String strTagName = pSubNode->GetTagName();
+
+    if (strTagName == XRDT_TAG_NIL)
+    {
+        SetNilValue();
+    }
+    else if (strTagName == XRDT_TAG_BOOLEAN)
+    {
+    }
+    else if (strTagName == XRDT_TAG_INT || strTagName == XRDT_TAG_I4)
+    {
+    }
+    else if (strTagName == XRDT_TAG_DOUBLE)
+    {
+    }
+    else if (strTagName == XRDT_TAG_STRING)
+    {
+    }
+    else if (strTagName == XRDT_TAG_DATETIME)
+    {
+    }
+    else if (strTagName == XRDT_TAG_BASE64)
+    {
+    }
+    else if (strTagName == XRDT_TAG_ARRAY)
+    {
+    }
+    else if (strTagName == XRDT_TAG_STRUCT)
+    {
+    }
+    else
+    {
+        return false;
+    }
+
+    return true;
 }

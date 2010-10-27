@@ -77,4 +77,5 @@ public:
 
 public:
     XmlNodePtr ToXml();
+    bool FromXml(const XmlNodePtr &pNode);
 };

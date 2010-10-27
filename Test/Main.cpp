@@ -67,8 +67,15 @@ int main()
 
     v.SetStructValue(b);
 
-    xl::String s = v.ToXml()->GetXmlString(L"", L"");
+    XmlNodePtr pNode = v.ToXml();
+    xl::String s = pNode->GetXmlString(L"", L"");
     LPCTSTR p = s.GetAddress();
+
+    XmlRpcValue v2;
+    v2.FromXml(pNode);
+    XmlNodePtr pNode2 = v2.ToXml();
+    xl::String s2 = pNode2->GetXmlString(L"", L"");
+    LPCTSTR p2 = s2.GetAddress();
 
     return 0;
 }
