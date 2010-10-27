@@ -419,7 +419,14 @@ bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
 
     XmlNodePtr pSubNode = *pNode->SubNodes().Begin();
 
-    if (pSubNode->GetType() != XmlNode::XML_NODE)
+    if (pSubNode->GetType() == XmlNode::XML_VALUE)
+    {
+        ClearValue();
+        SetStringValue(pSubNode->GetValue());
+
+        return true;
+    }
+    else if (pSubNode->GetType() != XmlNode::XML_NODE)
     {
         return false;
     }
