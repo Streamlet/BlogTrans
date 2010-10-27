@@ -17,6 +17,7 @@
 #include "../MetaWeblog/XmlParser.h"
 #include "../MetaWeblog/HttpIO.h"
 #include "../MetaWeblog/XmlRpcValue.h"
+#include "../MetaWeblog/Base64.h"
 
 #include <Windows.h>
 #include <tchar.h>
@@ -52,6 +53,14 @@ int main()
 //     arrBytes.PushBack(0);
 //     LPCSTR p = (LPCSTR)&arrBytes[0];
 
+    XmlRpcBase64 u;
+    u.PushBack('1');
+    u.PushBack('2');
+    u.PushBack('3');
+
+    XmlRpcValue v0;
+    v0.SetBase64Value(u);
+    
     XmlRpcValue v;
     v.SetStringValue(L"123");
 
@@ -59,7 +68,7 @@ int main()
     a.PushBack(v);
     a.PushBack(v);
     a.PushBack(v);
-
+    a.PushBack(v0);
     v.SetArrayValue(a);
 
     XmlRpcStruct b;
@@ -76,6 +85,11 @@ int main()
     XmlNodePtr pNode2 = v2.ToXml();
     xl::String s2 = pNode2->GetXmlString();
     LPCTSTR p2 = s2.GetAddress();
+
+//     Base64 base64;
+//     Base64StringPtr p = base64.Encode("123", 3);
+//     Base64BytesPtr o = base64.Decode(*p);
+
 
     return 0;
 }

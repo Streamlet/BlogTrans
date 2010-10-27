@@ -1,5 +1,6 @@
 #include "XmlRpcValue.h"
 #include <tchar.h>
+#include "Base64.h"
 
 #define XRDT_TAG_VALUE      L"value"
 #define XRDT_TAG_NIL        L"nil"
@@ -333,7 +334,11 @@ XmlNodePtr XmlRpcValue::ToXml()
         break;
     case XRDT_BASE64:
         pNode->SetTagName(XRDT_TAG_BASE64);
-        pSubNode->SetValue(L"");    //TODO: Base64 encode
+        {
+            Base64 base64;
+            Base64StringPtr pEncoded = base64.Encode((m_base64->Empty() ? nullptr : &(*m_base64)[0]), m_base64->Size());
+            pSubNode->SetValue(*pEncoded);
+        }
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_ARRAY:
@@ -527,8 +532,10 @@ bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
 
         xl::String strValue = pValueNode->GetValue();
 
-        // TODO: Base64 decode
-        //SetBase64Value();
+        Base64 base64;
+        Base64BytesPtr pDecoded = base64.Decode(strValue);
+
+        SetBase64Value(*pDecoded);
     }
     else if (strTagName == XRDT_TAG_ARRAY)
     {

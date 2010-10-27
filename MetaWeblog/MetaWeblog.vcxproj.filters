@@ -28,6 +28,9 @@
     <ClInclude Include="XmlRpcValue.h">
       <Filter>XmlRpc</Filter>
     </ClInclude>
+    <ClInclude Include="Base64.h">
+      <Filter>XmlRpc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlParser.cpp">
@@ -37,6 +40,9 @@
       <Filter>HttpIO</Filter>
     </ClCompile>
     <ClCompile Include="XmlRpcValue.cpp">
+      <Filter>XmlRpc</Filter>
+    </ClCompile>
+    <ClCompile Include="Base64.cpp">
       <Filter>XmlRpc</Filter>
     </ClCompile>
   </ItemGroup>

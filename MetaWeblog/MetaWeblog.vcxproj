@@ -11,11 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Base64.cpp" />
     <ClCompile Include="HttpIO.cpp" />
     <ClCompile Include="XmlParser.cpp" />
     <ClCompile Include="XmlRpcValue.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base64.h" />
     <ClInclude Include="HttpIO.h" />
     <ClInclude Include="XmlParser.h" />
     <ClInclude Include="XmlRpcValue.h" />
