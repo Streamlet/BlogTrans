@@ -36,7 +36,7 @@
     <ClCompile Include="HttpIO.cpp">
       <Filter>HttpIO</Filter>
     </ClCompile>
-    <ClCompile Include="XmlPrcValue.cpp">
+    <ClCompile Include="XmlRpcValue.cpp">
       <Filter>XmlRpc</Filter>
     </ClCompile>
   </ItemGroup>

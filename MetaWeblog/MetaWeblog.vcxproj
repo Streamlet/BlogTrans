@@ -13,7 +13,7 @@
   <ItemGroup>
     <ClCompile Include="HttpIO.cpp" />
     <ClCompile Include="XmlParser.cpp" />
-    <ClCompile Include="XmlPrcValue.cpp" />
+    <ClCompile Include="XmlRpcValue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpIO.h" />

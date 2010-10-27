@@ -217,7 +217,7 @@ void XmlRpcValue::SetDateTimeValue(const time_t &value)
 {
     m_type = XRDT_DATETIME;
     m_datetime = new XmlRpcDateTime;
-    *m_datetime = nullptr;  // TODO
+    *m_datetime = nullptr;  //TODO: make iso date time
 }
 
 void XmlRpcValue::SetBase64Value(const XmlRpcBase64 &value)
@@ -333,7 +333,7 @@ XmlNodePtr XmlRpcValue::ToXml()
         break;
     case XRDT_BASE64:
         pNode->SetTagName(XRDT_TAG_BASE64);
-        pSubNode->SetValue(L"");    // TODO
+        pSubNode->SetValue(L"");    //TODO: Base64 encode
         pNode->SubNodes().PushBack(pSubNode);
         break;
     case XRDT_ARRAY:
@@ -403,31 +403,210 @@ bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
 
     if (strTagName == XRDT_TAG_NIL)
     {
+        if (!pSubNode->SubNodes().Empty())
+        {
+            return false;
+        }
+
         SetNilValue();
     }
     else if (strTagName == XRDT_TAG_BOOLEAN)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
+        
+        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        {
+            return false;
+        }
+
+        xl::String strValue = pValueNode->GetValue();
+
+        if (strValue != L"0" && strValue != L"1")
+        {
+            return false;
+        }
+
+        SetBoolValue(strValue != L"0");
     }
     else if (strTagName == XRDT_TAG_INT || strTagName == XRDT_TAG_I4)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
+
+        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        {
+            return false;
+        }
+
+        xl::String strValue = pValueNode->GetValue();
+
+        XmlRpcInt nValue;
+        _stscanf(strValue.GetAddress(), _T("%d"), &nValue);
+
+        SetIntValue(nValue);
     }
     else if (strTagName == XRDT_TAG_DOUBLE)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
+
+        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        {
+            return false;
+        }
+
+        xl::String strValue = pValueNode->GetValue();
+
+        XmlRpcDouble lfValue;
+        _stscanf(strValue.GetAddress(), _T("%lf"), &lfValue);
+
+        SetDoubleValue(lfValue);
     }
     else if (strTagName == XRDT_TAG_STRING)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
+
+        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        {
+            return false;
+        }
+
+        xl::String strValue = pValueNode->GetValue();
+
+        SetStringValue(strValue);
     }
     else if (strTagName == XRDT_TAG_DATETIME)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
+
+        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        {
+            return false;
+        }
+
+        xl::String strValue = pValueNode->GetValue();
+
+        SetDateTimeValue(strValue);
     }
     else if (strTagName == XRDT_TAG_BASE64)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
+
+        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        {
+            return false;
+        }
+
+        xl::String strValue = pValueNode->GetValue();
+
+        // TODO: Base64 decode
+        //SetBase64Value();
     }
     else if (strTagName == XRDT_TAG_ARRAY)
     {
+        if (pSubNode->SubNodes().Size() != 1)
+        {
+            return false;
+        }
+
+        XmlNodePtr pDataNode = *pSubNode->SubNodes().Begin();
+
+        if (pDataNode->GetType() != XmlNode::XML_NODE ||
+            pDataNode->GetTagName() != XRDT_TAG_DATA)
+        {
+            return false;
+        }
+
+        XmlRpcArray arrValue;
+
+        for (XmlNodeList::Iterator it = pDataNode->SubNodes().Begin(); it != pDataNode->SubNodes().End(); ++it)
+        {
+            XmlRpcValue value;
+            
+            if (!value.FromXml(*it))
+            {
+                return false;
+            }
+
+            arrValue.PushBack(value);
+        }
+
+        SetArrayValue(arrValue);
     }
     else if (strTagName == XRDT_TAG_STRUCT)
     {
+        XmlRpcStruct stValue;
+
+        for (XmlNodeList::Iterator it = pSubNode->SubNodes().Begin(); it != pSubNode->SubNodes().End(); ++it)
+        {
+            XmlNodePtr pMemberNode = *it;
+
+            if (pMemberNode->GetType() != XmlNode::XML_NODE ||
+                pMemberNode->GetTagName() != XRDT_TAG_MEMBER ||
+                pMemberNode->SubNodes().Size() != 2)
+            {
+                return false;
+            }
+
+            XmlNodePtr pNameNode = *pMemberNode->SubNodes().Begin();
+
+            if (pNameNode->GetType() != XmlNode::XML_NODE ||
+                pNameNode->GetTagName() != XRDT_TAG_NAME ||
+                pNameNode->SubNodes().Size() != 1)
+            {
+                return false;
+            }
+
+            XmlNodePtr pNameValue = *pNameNode->SubNodes().Begin();
+
+            if (pNameValue->GetType() != XmlNode::XML_VALUE)
+            {
+                return false;
+            }
+
+            xl::String strName = pNameValue->GetValue();
+
+            XmlNodePtr pValueNode = *++pMemberNode->SubNodes().Begin();
+
+            XmlRpcValue value;
+
+            if (!value.FromXml(pValueNode))
+            {
+                return false;
+            }
+
+            stValue.Insert(strName, value);
+        }
+        
+        SetStructValue(stValue);
     }
     else
     {
