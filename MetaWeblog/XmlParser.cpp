@@ -94,11 +94,11 @@ XmlString XmlNode::GetXmlString(const XmlString &strIndent /*= L"\t"*/, size_t n
 
     if (m_ntType == XML_VALUE)
     {
-        return strIndents + XmlStringTrans::XmlEncodeInnerXml(m_strValue) + END_OF_LINE;
+        return strIndents + XmlStringTrans::XmlEncodeInnerXml(m_strValue);
     }
     else if (m_ntType == XML_CDATA)
     {
-        return strIndents + L"<![CDATA[" + m_strValue + L"]]>" + END_OF_LINE;
+        return strIndents + L"<![CDATA[" + m_strValue + L"]]>";
     }
 
     strRet += strIndents;
@@ -123,9 +123,18 @@ XmlString XmlNode::GetXmlString(const XmlString &strIndent /*= L"\t"*/, size_t n
     }
 
     strRet += L">";
-    strRet += END_OF_LINE;
-    strRet += GetInnerXml(strIndent, nCount + 1);
-    strRet += strIndents;
+
+    if (m_listSubNodes.Size() > 1 || (*m_listSubNodes.Begin())->m_ntType == XML_NODE)
+    {
+        strRet += END_OF_LINE;
+        strRet += GetInnerXml(strIndent, nCount + 1);
+        strRet += strIndents;
+    }
+    else
+    {
+        strRet += GetInnerXml(strIndent, 0);
+    }
+
     strRet += L"</";
     strRet += m_strTagName;
     strRet += L">";
