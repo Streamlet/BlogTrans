@@ -25,6 +25,9 @@
     <ClInclude Include="HttpIO.h">
       <Filter>HttpIO</Filter>
     </ClInclude>
+    <ClInclude Include="XmlRpcValue.h">
+      <Filter>XmlRpc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlParser.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="HttpIO.cpp">
       <Filter>HttpIO</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlPrcValue.cpp">
+      <Filter>XmlRpc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

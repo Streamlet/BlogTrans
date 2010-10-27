@@ -13,10 +13,12 @@
   <ItemGroup>
     <ClCompile Include="HttpIO.cpp" />
     <ClCompile Include="XmlParser.cpp" />
+    <ClCompile Include="XmlPrcValue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpIO.h" />
     <ClInclude Include="XmlParser.h" />
+    <ClInclude Include="XmlRpcValue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EC8C9534-49F3-4B3F-942E-4F6ACC06AC46}</ProjectGuid>
