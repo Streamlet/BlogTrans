@@ -16,19 +16,20 @@
 
 #include "../MetaWeblog/XmlParser.h"
 #include "../MetaWeblog/HttpIO.h"
+#include "../MetaWeblog/XmlRpcValue.h"
 
 #include <Windows.h>
 #include <tchar.h>
 
 int main()
 {
-    XmlInstList xmlInstList;
-    XmlNodeList xmlNodeList;
-    XmlParser::ParseXml(L"<?xml encoding=\"utf-8\"?><doc>123</doc>", &xmlInstList, nullptr);
-
-    XmlString str = (*xmlNodeList.Begin())->GetXmlString();
-
-    const XmlChar *p = str.GetAddress();
+//     XmlInstList xmlInstList;
+//     XmlNodeList xmlNodeList;
+//     XmlParser::ParseXml(L"<?xml encoding=\"utf-8\"?><doc>123</doc>", &xmlInstList, &xmlNodeList);
+// 
+//     XmlString str = (*xmlNodeList.Begin())->GetXmlString();
+// 
+//     const XmlChar *p = str.GetAddress();
 
 //     HttpIO http;
 // 
@@ -50,6 +51,19 @@ int main()
 // 
 //     arrBytes.PushBack(0);
 //     LPCSTR p = (LPCSTR)&arrBytes[0];
+
+    XmlRpcValue v;
+    v.SetStringValue(L"123");
+
+    XmlRpcArray a;
+    a.PushBack(v);
+    a.PushBack(v);
+    a.PushBack(v);
+
+    v.SetArrayValue(a);
+
+    xl::String s = v.ToXml()->GetXmlString(L"\t");
+    LPCTSTR p = s.GetAddress();
 
     return 0;
 }
