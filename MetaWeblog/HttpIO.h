@@ -45,7 +45,8 @@ public:
     bool SendRequest(LPCTSTR lpVerb,
                      LPCTSTR lpPagePath,
                      LPCTSTR lpExtraHeader,
-                     const xl::Array<BYTE> *pData,
+                     LPVOID  pData,
+                     DWORD   dwCbDataSize,
                      HANDLE hEventCancel,
                      xl::Array<BYTE> *pContent = NULL);
 

@@ -14,6 +14,9 @@
 //------------------------------------------------------------------------------
 
 
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_NON_CONFORMING_SWPRINTFS
+
 #include "XmlRpcValue.h"
 #include <tchar.h>
 #include "Base64.h"
@@ -32,6 +35,7 @@
 #define XRDT_TAG_STRUCT     L"struct"
 #define XRDT_TAG_MEMBER     L"member"
 #define XRDT_TAG_NAME       L"name"
+
 
 XmlRpcValue::XmlRpcValue()
     : m_type(XRDT_NIL), m_bool(false), m_int(0), m_double(0.0), m_string(nullptr),

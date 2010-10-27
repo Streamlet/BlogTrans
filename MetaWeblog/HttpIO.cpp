@@ -127,7 +127,8 @@ void HttpIO::Disconnect()
 bool HttpIO::SendRequest(LPCTSTR lpVerb,
                          LPCTSTR lpPagePath,
                          LPCTSTR lpExtraHeader,
-                         const xl::Array<BYTE> *pData,
+                         LPVOID  pData,
+                         DWORD   dwCbDataSize,
                          HANDLE hEventCancel,
                          xl::Array<BYTE> *pContent /*= NULL*/)
 {
@@ -146,9 +147,9 @@ bool HttpIO::SendRequest(LPCTSTR lpVerb,
     if (!WinHttpSendRequest(m_hRequest,
                             lpExtraHeader,
                             -1L,
-                            (pData == NULL || pData->Empty()) ? NULL : (LPVOID)&(*pData)[0],
-                            (pData == NULL ? 0 : pData->Size()),
-                            (pData == NULL ? 0 : pData->Size()),
+                            pData,
+                            dwCbDataSize,
+                            dwCbDataSize,
                             (DWORD_PTR)this))
     {
         DWORD dwError = GetLastError();
