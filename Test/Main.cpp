@@ -62,7 +62,12 @@ int main()
 
     v.SetArrayValue(a);
 
-    xl::String s = v.ToXml()->GetXmlString(L"\t");
+    XmlRpcStruct b;
+    b.Insert(L"sb", v);
+
+    v.SetStructValue(b);
+
+    xl::String s = v.ToXml()->GetXmlString(L"", L"");
     LPCTSTR p = s.GetAddress();
 
     return 0;

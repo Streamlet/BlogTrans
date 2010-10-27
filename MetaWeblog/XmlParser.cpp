@@ -61,8 +61,6 @@ XmlString XmlStringTrans::XmlDecode(const XmlString &str)
 //////////////////////////////////////////////////////////////////////////
 // XmlNode
 
-const XmlString END_OF_LINE = L"\r\n";
-
 XmlNode::XmlNode()
 {
     Clear();
@@ -82,7 +80,9 @@ void XmlNode::Clear()
     m_listSubNodes.Clear();
 }
 
-XmlString XmlNode::GetXmlString(const XmlString &strIndent /*= L"\t"*/, size_t nCount /*= 0*/)
+XmlString XmlNode::GetXmlString(const XmlString &strLineEnd /*= L"\r\n"*/,
+                                const XmlString &strIndent /*= L"\t"*/,
+                                size_t nCount /*= 0*/)
 {
     XmlString strRet;
     XmlString strIndents;
@@ -117,7 +117,7 @@ XmlString XmlNode::GetXmlString(const XmlString &strIndent /*= L"\t"*/, size_t n
     if (m_listSubNodes.Empty())
     {
         strRet += L" />";
-        strRet += END_OF_LINE;
+        strRet += strLineEnd;
 
         return strRet;
     }
@@ -126,19 +126,19 @@ XmlString XmlNode::GetXmlString(const XmlString &strIndent /*= L"\t"*/, size_t n
 
     if (m_listSubNodes.Size() > 1 || (*m_listSubNodes.Begin())->m_ntType == XML_NODE)
     {
-        strRet += END_OF_LINE;
-        strRet += GetInnerXml(strIndent, nCount + 1);
+        strRet += strLineEnd;
+        strRet += GetInnerXml(strLineEnd, strIndent, nCount + 1);
         strRet += strIndents;
     }
     else
     {
-        strRet += GetInnerXml(strIndent, 0);
+        strRet += GetInnerXml(strLineEnd, strIndent, 0);
     }
 
     strRet += L"</";
     strRet += m_strTagName;
     strRet += L">";
-    strRet += END_OF_LINE;
+    strRet += strLineEnd;
 
     return strRet;
 }
@@ -204,7 +204,9 @@ bool XmlNode::SetValue(const XmlString &strValue)
     return true;
 }
 
-XmlString XmlNode::GetInnerXml(const XmlString &strIndent /*= L"\t"*/, size_t nCount /*= 0*/)
+XmlString XmlNode::GetInnerXml(const XmlString &strLineEnd /*= L"\r\n"*/,
+                               const XmlString &strIndent /*= L"\t"*/,
+                               size_t nCount /*= 0*/)
 {
     XmlString strIndents;
 
@@ -222,7 +224,7 @@ XmlString XmlNode::GetInnerXml(const XmlString &strIndent /*= L"\t"*/, size_t nC
 
     for (XmlNodeList::Iterator i = m_listSubNodes.Begin(); i != m_listSubNodes.End(); ++i)
     {
-        strRet += (*i)->GetXmlString(strIndent, nCount);
+        strRet += (*i)->GetXmlString(strLineEnd, strIndent, nCount);
     }
 
     return strRet;
@@ -270,7 +272,7 @@ void XmlInst::Clear()
     m_mapProperties.Clear();
 }
 
-XmlString XmlInst::GetXmlString()
+XmlString XmlInst::GetXmlString(const XmlString &strLineEnd /*= L"\r\n"*/)
 {
     XmlString strRet;
 
@@ -287,7 +289,7 @@ XmlString XmlInst::GetXmlString()
     }
 
     strRet += L"?>";
-    strRet += END_OF_LINE;
+    strRet += strLineEnd;
 
     return strRet;
 }

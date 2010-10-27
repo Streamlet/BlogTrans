@@ -49,7 +49,7 @@ public:
     void Clear();
 
 public:
-    XmlString GetXmlString(const XmlString &strIndent = L"\t", size_t nCount = 0);
+    XmlString GetXmlString(const XmlString &strLineEnd = L"\r\n", const XmlString &strIndent = L"\t", size_t nCount = 0);
 
 public:
     enum NODE_TYPE
@@ -67,7 +67,7 @@ public:
     bool SetTagName(const XmlString &strTagName);
     XmlString GetValue();
     bool SetValue(const XmlString &strValue);
-    XmlString GetInnerXml(const XmlString &strIndent = L"\t", size_t nCount = 0);
+    XmlString GetInnerXml(const XmlString &strLineEnd = L"\r\n", const XmlString &strIndent = L"\t", size_t nCount = 0);
     bool SetInnerXml(const XmlString &strInnerXml);
 
 public:
@@ -95,7 +95,7 @@ public:
     void Clear();
 
 public:
-    XmlString GetXmlString();
+    XmlString GetXmlString(const XmlString &strLineEnd = L"\r\n");
 
 public:
     XmlString GetTagName();

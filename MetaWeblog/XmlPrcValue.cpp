@@ -46,7 +46,7 @@ XmlRpcValue &XmlRpcValue::operator = (const XmlRpcValue &that)
         break;
     case XRDT_ARRAY:
         this->m_array = new XmlRpcArray;
-        *this->m_base64 = *that.m_base64;
+        *this->m_array = *that.m_array;
         break;
     case XRDT_STRUCT:
         this->m_struct = new XmlRpcStruct;
@@ -343,7 +343,12 @@ XmlNodePtr XmlRpcValue::ToXml()
 
             XmlNodePtr pName = new XmlNode;
             pName->SetTagName(L"name");
-            pName->SetValue(it->Key);
+
+            XmlNodePtr pNameValue = new XmlNode;
+            pNameValue->SetType(XmlNode::XML_VALUE);
+            pNameValue->SetValue(it->Key);
+
+            pName->SubNodes().PushBack(pNameValue);
 
             pMember->SubNodes().PushBack(pName);
             pMember->SubNodes().PushBack(it->Value.ToXml());
