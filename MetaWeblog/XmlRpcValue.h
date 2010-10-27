@@ -1,3 +1,21 @@
+//------------------------------------------------------------------------------
+//
+//    Copyright (C) Streamlet. All rights reserved.
+//
+//    File Name:   XmlRpcValue.h
+//    Author:      Streamlet
+//    Create Time: 2010-10-28
+//    Description: 
+//
+//    Version history:
+//
+//
+//
+//------------------------------------------------------------------------------
+
+#ifndef __XMLRPCVALUE_H_5EF83F6C_F2D4_465E_B965_CC8FBB4987DF_INCLUDED__
+#define __XMLRPCVALUE_H_5EF83F6C_F2D4_465E_B965_CC8FBB4987DF_INCLUDED__
+
 
 #include <xl/Containers/xlArray.h>
 #include <xl/Containers/xlMap.h>
@@ -79,3 +97,6 @@ public:
     XmlNodePtr ToXml();
     bool FromXml(const XmlNodePtr &pNode);
 };
+
+
+#endif // #ifndef __XMLRPCVALUE_H_5EF83F6C_F2D4_465E_B965_CC8FBB4987DF_INCLUDED__

@@ -1,3 +1,19 @@
+//------------------------------------------------------------------------------
+//
+//    Copyright (C) Streamlet. All rights reserved.
+//
+//    File Name:   XmlRpcValue.cpp
+//    Author:      Streamlet
+//    Create Time: 2010-10-28
+//    Description: 
+//
+//    Version history:
+//
+//
+//
+//------------------------------------------------------------------------------
+
+
 #include "XmlRpcValue.h"
 #include <tchar.h>
 #include "Base64.h"

@@ -1,3 +1,19 @@
+//------------------------------------------------------------------------------
+//
+//    Copyright (C) Streamlet. All rights reserved.
+//
+//    File Name:   Base64.cpp
+//    Author:      Streamlet
+//    Create Time: 2010-10-28
+//    Description: 
+//
+//    Version history:
+//
+//
+//
+//------------------------------------------------------------------------------
+
+
 
 #include "Base64.h"
 

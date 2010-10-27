@@ -1,3 +1,21 @@
+//------------------------------------------------------------------------------
+//
+//    Copyright (C) Streamlet. All rights reserved.
+//
+//    File Name:   Base64.h
+//    Author:      Streamlet
+//    Create Time: 2010-10-28
+//    Description: 
+//
+//    Version history:
+//
+//
+//
+//------------------------------------------------------------------------------
+
+#ifndef __BASE64_H_4BE77292_183C_4343_A33D_FC9AA85E6D77_INCLUDED__
+#define __BASE64_H_4BE77292_183C_4343_A33D_FC9AA85E6D77_INCLUDED__
+
 
 #include <xl/Containers/xlArray.h>
 #include <xl/Containers/xlMap.h>
@@ -24,3 +42,5 @@ public:
 private:
     xl::Map<Base64Char, Base64Byte> m_alphabet_reverse;
 };
+
+#endif // #ifndef __BASE64_H_4BE77292_183C_4343_A33D_FC9AA85E6D77_INCLUDED__
