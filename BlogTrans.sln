@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaWeblog", "MetaWeblog\MetaWeblog.vcxproj", "{EC8C9534-49F3-4B3F-942E-4F6ACC06AC46}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs08
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MetaWeblog\\MetaWeblog.vcxproj
+		SccProjectName1 = MetaWeblog
+		SccLocalPath1 = MetaWeblog
+		SccProjectUniqueName2 = Test\\Test.vcxproj
+		SccProjectName2 = Test
+		SccLocalPath2 = Test
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC8C9534-49F3-4B3F-942E-4F6ACC06AC46}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EC8C9534-49F3-4B3F-942E-4F6ACC06AC46}.Debug|Win32.Build.0 = Debug|Win32
+		{EC8C9534-49F3-4B3F-942E-4F6ACC06AC46}.Release|Win32.ActiveCfg = Release|Win32
+		{EC8C9534-49F3-4B3F-942E-4F6ACC06AC46}.Release|Win32.Build.0 = Release|Win32
+		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Debug|Win32.Build.0 = Debug|Win32
+		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Release|Win32.ActiveCfg = Release|Win32
+		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
