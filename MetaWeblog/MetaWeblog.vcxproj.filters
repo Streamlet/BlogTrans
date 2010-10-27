@@ -31,6 +31,12 @@
     <ClInclude Include="Base64.h">
       <Filter>XmlRpc</Filter>
     </ClInclude>
+    <ClInclude Include="XmlRpc.h">
+      <Filter>XmlRpc</Filter>
+    </ClInclude>
+    <ClInclude Include="Encoding.h">
+      <Filter>XmlRpc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlParser.cpp">
@@ -43,6 +49,12 @@
       <Filter>XmlRpc</Filter>
     </ClCompile>
     <ClCompile Include="Base64.cpp">
+      <Filter>XmlRpc</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlRpc.cpp">
+      <Filter>XmlRpc</Filter>
+    </ClCompile>
+    <ClCompile Include="Encoding.cpp">
       <Filter>XmlRpc</Filter>
     </ClCompile>
   </ItemGroup>

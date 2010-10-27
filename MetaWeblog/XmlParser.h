@@ -85,6 +85,12 @@ private:
 //////////////////////////////////////////////////////////////////////////
 // XmlInst
 
+#define XML_INST_XML            L"xml"
+#define XML_INST_VERSION        L"version"
+#define XML_INST_VERSION_1_0    L"1.0"
+#define XML_INST_ENCODING       L"encoding"
+#define XML_INST_ENCODING_UTF8  L"utf-8"
+
 class XmlInst
 {
 public:

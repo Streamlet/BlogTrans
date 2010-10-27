@@ -37,8 +37,6 @@ private:
 
 public:
     bool Connect(LPCTSTR lpHost, INTERNET_PORT nPort = INTERNET_DEFAULT_PORT);
-
-private:
     void Disconnect();
 
 public:

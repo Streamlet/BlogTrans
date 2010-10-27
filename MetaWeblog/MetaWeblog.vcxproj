@@ -12,14 +12,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base64.cpp" />
+    <ClCompile Include="Encoding.cpp" />
     <ClCompile Include="HttpIO.cpp" />
     <ClCompile Include="XmlParser.cpp" />
+    <ClCompile Include="XmlRpc.cpp" />
     <ClCompile Include="XmlRpcValue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base64.h" />
+    <ClInclude Include="Encoding.h" />
     <ClInclude Include="HttpIO.h" />
     <ClInclude Include="XmlParser.h" />
+    <ClInclude Include="XmlRpc.h" />
     <ClInclude Include="XmlRpcValue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
