@@ -994,9 +994,17 @@ bool XmlParserEx::NodeList(XmlNodeList &xmlNodeList)
 
     XmlNodePtr xmlNodePtr;
 
+    int nPos = m_nPos;
+    int nCount = 0;
+
     while (Node(xmlNodePtr))
     {
         xmlNodeList.PushBack(xmlNodePtr);
+
+        if (m_nPos == nPos && nCount++ > 0)
+        {
+            return false;
+        }
     }
 
     return true;
@@ -1006,9 +1014,9 @@ bool XmlParserEx::Node(XmlNodePtr &xmlNodePtr)
 {
 /*
     <Node>    ->    <NodeValue> |
-                <Cdata> |
-                <NodeStartStart><NodeName><PropertyList><NodeSingleEnd> |
-                <NodeStartStart><NodeName><PropertyList><NodEnd><NodeList><NodeEndStart><NodeName><NodeEnd>
+                    <Cdata> |
+                    <NodeStartStart><NodeName><PropertyList><NodeSingleEnd> |
+                    <NodeStartStart><NodeName><PropertyList><NodEnd><NodeList><NodeEndStart><NodeName><NodeEnd>
 */
     XmlNodePtr pNode = new XmlNode;
 
