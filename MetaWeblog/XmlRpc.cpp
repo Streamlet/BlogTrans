@@ -21,7 +21,7 @@
 #pragma comment(lib, "WinHttp.lib")
 
 #define XML_RPC_METHOD_CALL     L"methodCall"
-#define XML_RPC_METHOD_NAME     L"methodCall"
+#define XML_RPC_METHOD_NAME     L"methodName"
 #define XML_RPC_PARAMS          L"params"
 #define XML_RPC_PARAM           L"param"
 #define XML_RPC_METHOD_RESPONSE L"methodResponse"
@@ -51,9 +51,20 @@ bool XmlRpc::SetApiUrl(const xl::String &strUrl)
         return false;
     }
     
-    m_strHostName += urlComp.lpszHostName;
-    m_strPagePath += urlComp.lpszUrlPath;
-    m_strPagePath += urlComp.lpszExtraInfo;
+    for (DWORD i = 0; i < urlComp.dwHostNameLength; ++i)
+    {
+        m_strHostName.AppendBack(urlComp.lpszHostName[i]);
+    }
+
+    for (DWORD i = 0; i < urlComp.dwUrlPathLength; ++i)
+    {
+        m_strPagePath.AppendBack(urlComp.lpszUrlPath[i]);
+    }
+
+    for (DWORD i = 0; i < urlComp.dwExtraInfoLength; ++i)
+    {
+        m_strPagePath.AppendBack(urlComp.lpszExtraInfo[i]);
+    }
 
     return true;
 }
@@ -105,7 +116,7 @@ bool XmlRpc::ExecuteMethod(const xl::String &strMethodName,
 
     arrResponse.PushBack('\0');
     xl::StringA strResponseUtf8 = (LPCSTR)&arrResponse[0];
-    xl::String strResponse = Encoding::Utf8ToString(strRequestUtf8);
+    xl::String strResponse = Encoding::Utf8ToString(strResponseUtf8);
 
     XmlInstList xmlInst;
     XmlNodeList xmlNode;
@@ -124,7 +135,7 @@ XmlInstPtr XmlRpc::MakeXmlInst()
 
     pInst->SetTagName(XML_INST_XML);
     pInst->Properties().Insert(XML_INST_VERSION, XML_INST_VERSION_1_0);
-    pInst->Properties().Insert(XML_INST_ENCODING, XML_INST_ENCODING_UTF8);
+//  pInst->Properties().Insert(XML_INST_ENCODING, XML_INST_ENCODING_UTF8);
 
     return pInst;
 }
