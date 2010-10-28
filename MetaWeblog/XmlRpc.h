@@ -27,7 +27,7 @@
 class XmlRpc
 {
 public:
-    XmlRpc();
+    XmlRpc(const xl::String &strUserAgent = L"XmlRpcClient");
     ~XmlRpc();
 
 public:

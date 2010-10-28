@@ -27,8 +27,8 @@
 #define XML_RPC_METHOD_RESPONSE L"methodResponse"
 #define XML_RPC_FAULT           L"fault"
 
-XmlRpc::XmlRpc()
-    : m_bConnected(false)
+XmlRpc::XmlRpc(const xl::String &strUserAgent /*= L"XmlRpcClient"*/)
+    : m_bConnected(false), m_http(strUserAgent.GetAddress())
 {
 
 }
