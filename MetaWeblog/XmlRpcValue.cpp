@@ -509,21 +509,28 @@ bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
     }
     else if (strTagName == XRDT_TAG_STRING)
     {
-        if (pSubNode->SubNodes().Size() != 1)
+        if (pSubNode->SubNodes().Size() > 1)
         {
             return false;
         }
 
-        XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
-
-        if (pValueNode->GetType() != XmlNode::XML_VALUE)
+        if (pSubNode->SubNodes().Empty())
         {
-            return false;
+            SetStringValue(_T(""));
         }
+        else
+        {
+            XmlNodePtr pValueNode = *pSubNode->SubNodes().Begin();
 
-        xl::String strValue = pValueNode->GetValue();
+            if (pValueNode->GetType() != XmlNode::XML_VALUE)
+            {
+                return false;
+            }
 
-        SetStringValue(strValue);
+            xl::String strValue = pValueNode->GetValue();
+
+            SetStringValue(strValue);
+        }
     }
     else if (strTagName == XRDT_TAG_DATETIME)
     {
