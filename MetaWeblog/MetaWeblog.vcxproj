@@ -24,7 +24,7 @@
     <ClInclude Include="Encoding.h" />
     <ClInclude Include="HttpIO.h" />
     <ClInclude Include="MetaWeblog.h" />
-    <ClInclude Include="MetaWebLogTypes.h" />
+    <ClInclude Include="MetaWeblogTypes.h" />
     <ClInclude Include="XmlParser.h" />
     <ClInclude Include="XmlRpc.h" />
     <ClInclude Include="XmlRpcValue.h" />

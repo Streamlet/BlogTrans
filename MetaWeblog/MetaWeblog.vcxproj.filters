@@ -40,7 +40,7 @@
     <ClInclude Include="MetaWeblog.h">
       <Filter>MetaWeblog</Filter>
     </ClInclude>
-    <ClInclude Include="MetaWebLogTypes.h">
+    <ClInclude Include="MetaWeblogTypes.h">
       <Filter>MetaWeblog</Filter>
     </ClInclude>
   </ItemGroup>
