@@ -18,6 +18,7 @@
 #define _CRT_NON_CONFORMING_SWPRINTFS
 
 #include "../MetaWeblog/MetaWeblog.h"
+#include "../MetaWeblog/ImgPicker.h"
 #include <Loki/ScopeGuard.h>
 
 #include <Windows.h>
@@ -143,15 +144,32 @@ int main()
     _tprintf(_T("\n"));
 
 
-    _tprintf(_T("Top 10 posts...\n"));
+    _tprintf(_T("Top 20 posts...\n"));
+    _tprintf(_T("\n"));
 
-    auto posts = metaWeblog.GetRecentPosts(blog.blogid, 10);
+    auto posts = metaWeblog.GetRecentPosts(blog.blogid, 20);
         
     for (auto it = posts.Begin(); it != posts.End(); ++it)
     {
         auto post = **it;
         _tprintf(_T("ID: %s, Time: %s Title:\n%s\n"),
             post.postid.GetAddress(), post.dateCreated.GetAddress(), post.title.GetAddress());
+
+        ImgPicker imgPicker;
+        auto imgs = imgPicker.Analyze(post.description);
+
+        if (!imgs.Empty())
+        {
+            _tprintf(_T("Images:\n"));
+        }
+
+        for (auto it = imgs.Begin(); it != imgs.End(); ++it)
+        {
+            xl::String strImgUrl(post.description.GetAddress() + it->nIndex, it->nLength);
+            _tprintf(_T("%s\n"), strImgUrl.GetAddress());
+        }
+
+        _tprintf(_T("\n"));
     }
 
     _tprintf(_T("\n"));

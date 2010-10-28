@@ -4,10 +4,6 @@
     <Filter Include="XmlParser">
       <UniqueIdentifier>{7f4e4951-b02c-427d-9775-f0eafea9dec2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interface">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="XmlRpc">
       <UniqueIdentifier>{c1c227be-25ac-4d80-99f8-e358e420bb45}</UniqueIdentifier>
     </Filter>
@@ -16,6 +12,10 @@
     </Filter>
     <Filter Include="HttpIO">
       <UniqueIdentifier>{1488cb6a-3bdb-4e37-a5e0-fa8fe2a21ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImgPicker">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +43,9 @@
     <ClInclude Include="MetaWeblogTypes.h">
       <Filter>MetaWeblog</Filter>
     </ClInclude>
+    <ClInclude Include="ImgPicker.h">
+      <Filter>ImgPicker</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlParser.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="MetaWeblog.cpp">
       <Filter>MetaWeblog</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgPicker.cpp">
+      <Filter>ImgPicker</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
     <ClCompile Include="Base64.cpp" />
     <ClCompile Include="Encoding.cpp" />
     <ClCompile Include="HttpIO.cpp" />
+    <ClCompile Include="ImgPicker.cpp" />
     <ClCompile Include="MetaWeblog.cpp" />
     <ClCompile Include="XmlParser.cpp" />
     <ClCompile Include="XmlRpc.cpp" />
@@ -23,6 +24,7 @@
     <ClInclude Include="Base64.h" />
     <ClInclude Include="Encoding.h" />
     <ClInclude Include="HttpIO.h" />
+    <ClInclude Include="ImgPicker.h" />
     <ClInclude Include="MetaWeblog.h" />
     <ClInclude Include="MetaWeblogTypes.h" />
     <ClInclude Include="XmlParser.h" />
