@@ -50,22 +50,11 @@ bool XmlRpc::SetApiUrl(const xl::String &strUrl)
     {
         return false;
     }
+
+    m_strHostName = xl::String(urlComp.lpszHostName, urlComp.dwHostNameLength);
+    m_strPagePath = xl::String(urlComp.lpszUrlPath, urlComp.dwUrlPathLength) +
+                    xl::String(urlComp.lpszExtraInfo, urlComp.dwExtraInfoLength);
     
-    for (DWORD i = 0; i < urlComp.dwHostNameLength; ++i)
-    {
-        m_strHostName.AppendBack(urlComp.lpszHostName[i]);
-    }
-
-    for (DWORD i = 0; i < urlComp.dwUrlPathLength; ++i)
-    {
-        m_strPagePath.AppendBack(urlComp.lpszUrlPath[i]);
-    }
-
-    for (DWORD i = 0; i < urlComp.dwExtraInfoLength; ++i)
-    {
-        m_strPagePath.AppendBack(urlComp.lpszExtraInfo[i]);
-    }
-
     return true;
 }
 
