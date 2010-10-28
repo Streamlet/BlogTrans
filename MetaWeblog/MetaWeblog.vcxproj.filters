@@ -37,6 +37,12 @@
     <ClInclude Include="Encoding.h">
       <Filter>XmlRpc</Filter>
     </ClInclude>
+    <ClInclude Include="MetaWeblog.h">
+      <Filter>MetaWeblog</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaWebLogTypes.h">
+      <Filter>MetaWeblog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlParser.cpp">
@@ -56,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="Encoding.cpp">
       <Filter>XmlRpc</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaWeblog.cpp">
+      <Filter>MetaWeblog</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
