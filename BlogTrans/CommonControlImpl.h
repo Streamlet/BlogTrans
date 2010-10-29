@@ -17,11 +17,10 @@
 #define __COMMONCONTROLIMPL_H_3D1BAA1A_7BCB_451B_ABA9_A5A598DD7305_INCLUDED__
 
 
-
 #include <atlbase.h>
 #include <atlstr.h>
-#include "../lib/wtl/atlapp.h"
-#include "../lib/wtl/atlctrls.h"
+#include "WTL/atlapp.h"
+#include "WTL/atlctrls.h"
 
 class CComboBoxImpl : public CWindowImpl<CComboBoxImpl, CComboBox>
 {
@@ -65,5 +64,10 @@ class CEditImpl : public CWindowImpl<CEditImpl, CEdit>
     END_MSG_MAP()
 };
 
+class CProgressBarCtrlImpl : public CWindowImpl<CProgressBarCtrlImpl, CProgressBarCtrl>
+{
+    BEGIN_MSG_MAP(CProgressBarCtrlImpl)
+    END_MSG_MAP()
+};
 
 #endif // #ifndef __COMMONCONTROLIMPL_H_3D1BAA1A_7BCB_451B_ABA9_A5A598DD7305_INCLUDED__
