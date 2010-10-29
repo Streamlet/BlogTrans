@@ -59,6 +59,12 @@ struct Post
     xl::String postid;
     SourcePtr source;
     xl::String userid;
+
+    Post()
+    {
+        enclosure = new Enclosure;
+        source = new Source;
+    }
 };
 
 typedef xl::QIPtr<Post> PostPtr;

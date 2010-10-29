@@ -323,7 +323,7 @@ XmlRpcValue MetaWeblog::PostToXmlRpcValue(const Post &post)
     description.SetStringValue(post.description);
 
     XmlRpcValue title;
-    description.SetStringValue(post.title);
+    title.SetStringValue(post.title);
 
     XmlRpcValue categories;
     XmlRpcArray arrCategories;
@@ -520,26 +520,22 @@ BlogInfoPtr MetaWeblog::BlogInfoFromXmlRpcValue(const XmlRpcValue &vXmlRpc)
     XmlRpcValue url         = xrStruct[L"url"];
     XmlRpcValue blogName    = xrStruct[L"blogName"];
 
-    if (blogid.GetType() != XRDT_STRING)
+    if (blogid.GetType() == XRDT_STRING)
     {
-        return pBlogInfo;
+        pBlogInfo->blogid = blogid.GetStringValue();
     }
 
-    pBlogInfo->blogid = blogid.GetStringValue();
 
-    if (url.GetType() != XRDT_STRING)
+    if (url.GetType() == XRDT_STRING)
     {
-        return pBlogInfo;
+        pBlogInfo->url = url.GetStringValue();
     }
 
-    pBlogInfo->url = url.GetStringValue();
-
-    if (blogName.GetType() != XRDT_STRING)
+    if (blogName.GetType() == XRDT_STRING)
     {
-        return pBlogInfo;
+        pBlogInfo->blogName = blogName.GetStringValue();
     }
 
-    pBlogInfo->blogName = blogName.GetStringValue();
 
     return pBlogInfo;
 }
@@ -568,40 +564,30 @@ CategoryInfoPtr MetaWeblog::CategoryInfoFromXmlRpcValue(const XmlRpcValue &vXmlR
     XmlRpcValue title       = xrStruct[L"title"];
     XmlRpcValue categoryid  = xrStruct[L"categoryid"];
 
-    if (description.GetType() != XRDT_STRING)
+    if (description.GetType() == XRDT_STRING)
     {
-        return pCategoryInfo;
+        pCategoryInfo->description = description.GetStringValue();
+    }
+    
+    if (htmlUrl.GetType() == XRDT_STRING)
+    {
+        pCategoryInfo->htmlUrl = htmlUrl.GetStringValue();
     }
 
-    pCategoryInfo->description = description.GetStringValue();
-
-    if (htmlUrl.GetType() != XRDT_STRING)
+    if (rssUrl.GetType() == XRDT_STRING)
     {
-        return pCategoryInfo;
+        pCategoryInfo->rssUrl = rssUrl.GetStringValue();
+    }
+    
+    if (title.GetType() == XRDT_STRING)
+    {
+        pCategoryInfo->title = title.GetStringValue();
     }
 
-    pCategoryInfo->htmlUrl = htmlUrl.GetStringValue();
-
-    if (rssUrl.GetType() != XRDT_STRING)
+    if (categoryid.GetType() == XRDT_STRING)
     {
-        return pCategoryInfo;
+        pCategoryInfo->categoryid = categoryid.GetStringValue();
     }
-
-    pCategoryInfo->rssUrl = rssUrl.GetStringValue();
-
-    if (title.GetType() != XRDT_STRING)
-    {
-        return pCategoryInfo;
-    }
-
-    pCategoryInfo->title = title.GetStringValue();
-
-    if (categoryid.GetType() != XRDT_STRING)
-    {
-        return pCategoryInfo;
-    }
-
-    pCategoryInfo->categoryid = categoryid.GetStringValue();
 
     return pCategoryInfo;
 }
@@ -640,64 +626,49 @@ PostPtr MetaWeblog::PostFromXmlRpcValue(const XmlRpcValue &vXmlRpc)
     XmlRpcValue source      = xrStruct[L"source"];
     XmlRpcValue userid      = xrStruct[L"userid"];
 
-    if (dateCreated.GetType() != XRDT_DATETIME)
+    if (dateCreated.GetType() == XRDT_DATETIME)
     {
-        return pPost;
+        pPost->dateCreated = dateCreated.GetDateTimeValue();
     }
 
-    pPost->dateCreated = dateCreated.GetDateTimeValue();
-
-    if (description.GetType() != XRDT_STRING)
+    if (description.GetType() == XRDT_STRING)
     {
-        return pPost;
+        pPost->description = description.GetStringValue();
     }
 
-    pPost->description = description.GetStringValue();
-
-    if (title.GetType() != XRDT_STRING)
+    if (title.GetType() == XRDT_STRING)
     {
-        return pPost;
+        pPost->title = title.GetStringValue();
     }
 
-    pPost->title = title.GetStringValue();
-
-    if (categories.GetType() != XRDT_ARRAY)
+    if (categories.GetType() == XRDT_ARRAY)
     {
-        return pPost;
+        XmlRpcArray xrArray = categories.GetArrayValue();
+
+        for (XmlRpcArray::Iterator it = xrArray.Begin(); it != xrArray.End(); ++it)
+        {
+            if (it->GetType() == XRDT_STRING)
+            {
+                pPost->categories.PushBack(it->GetStringValue());
+            }
+
+        }
     }
         
-    XmlRpcArray xrArray = categories.GetArrayValue();
-
-    for (XmlRpcArray::Iterator it = xrArray.Begin(); it != xrArray.End(); ++it)
+    if (enclosure.GetType() == XRDT_STRUCT)
     {
-        if (it->GetType() != XRDT_STRING)
-        {
-            return pPost;
-        }
-
-        pPost->categories.PushBack(it->GetStringValue());
+        pPost->enclosure = EnclosureFromXmlRpcValue(enclosure);
     }
 
-    if (enclosure.GetType() != XRDT_STRUCT)
+    if (link.GetType() == XRDT_STRING)
     {
-        return pPost;
+        pPost->link = link.GetStringValue();
     }
 
-    pPost->enclosure = EnclosureFromXmlRpcValue(enclosure);
-
-    if (link.GetType() != XRDT_STRING)
+    if (permalink.GetType() == XRDT_STRING)
     {
-        return pPost;
+        pPost->permalink = permalink.GetStringValue();
     }
-
-    pPost->link = link.GetStringValue();
-
-    if (permalink.GetType() != XRDT_STRING)
-    {
-        return pPost;
-    }
-
-    pPost->permalink = permalink.GetStringValue();
 
     if (postid.GetType() == XRDT_STRING)
     {
@@ -713,24 +684,16 @@ PostPtr MetaWeblog::PostFromXmlRpcValue(const XmlRpcValue &vXmlRpc)
 
         pPost->postid = BUFFER;
     }
-    else
+
+    if (source.GetType() == XRDT_STRUCT)
     {
-        return pPost;
+        pPost->source = SourceFromXmlRpcValue(source);
     }
 
-    if (source.GetType() != XRDT_STRUCT)
+    if (userid.GetType() == XRDT_STRING)
     {
-        return pPost;
+        pPost->userid = userid.GetStringValue();
     }
-
-    pPost->source = SourceFromXmlRpcValue(source);
-
-    if (userid.GetType() != XRDT_STRING)
-    {
-        return pPost;
-    }
-
-    pPost->userid = userid.GetStringValue();
 
     return pPost;
 }
@@ -753,19 +716,15 @@ SourcePtr MetaWeblog::SourceFromXmlRpcValue(const XmlRpcValue &vXmlRpc)
     XmlRpcValue name = xrStruct[L"name"];
     XmlRpcValue url = xrStruct[L"url"];
 
-    if (name.GetType() != XRDT_STRING)
+    if (name.GetType() == XRDT_STRING)
     {
-        return pSource;
+        pSource->name = name.GetStringValue();
     }
 
-    pSource->name = name.GetStringValue();
-
-    if (url.GetType() != XRDT_STRING)
+    if (url.GetType() == XRDT_STRING)
     {
-        return pSource;
+        pSource->url = url.GetStringValue();
     }
-
-    pSource->url = url.GetStringValue();
 
     return pSource;
 }
@@ -790,26 +749,20 @@ EnclosurePtr MetaWeblog::EnclosureFromXmlRpcValue(const XmlRpcValue &vXmlRpc)
     XmlRpcValue type = xrStruct[L"type"];
     XmlRpcValue url = xrStruct[L"url"];
 
-    if (length.GetType() != XRDT_INT)
+    if (length.GetType() == XRDT_INT)
     {
-        return pEnclosure;
+        pEnclosure->length = length.GetIntValue();
     }
 
-    pEnclosure->length = length.GetIntValue();
-
-    if (type.GetType() != XRDT_STRING)
+    if (type.GetType() == XRDT_STRING)
     {
-        return pEnclosure;
+        pEnclosure->type = type.GetStringValue();
     }
 
-    pEnclosure->type = type.GetStringValue();
-
-    if (url.GetType() != XRDT_STRING)
+    if (url.GetType() == XRDT_STRING)
     {
-        return pEnclosure;
+        pEnclosure->url = url.GetStringValue();
     }
-
-    pEnclosure->url = url.GetStringValue();
 
     return pEnclosure;
 }
