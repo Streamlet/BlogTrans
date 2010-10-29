@@ -46,6 +46,9 @@
     <ClInclude Include="ImgPicker.h">
       <Filter>ImgPicker</Filter>
     </ClInclude>
+    <ClInclude Include="HttpGet.h">
+      <Filter>HttpIO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="XmlParser.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="ImgPicker.cpp">
       <Filter>ImgPicker</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpGet.cpp">
+      <Filter>HttpIO</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

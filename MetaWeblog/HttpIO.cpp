@@ -132,10 +132,10 @@ bool HttpIO::SendRequest(LPCTSTR lpVerb,
                          HANDLE hEventCancel,
                          xl::Array<BYTE> *pContent /*= NULL*/)
 {
-    LPCTSTR lpAcceptTypes = _T("text/*\0");
+    CancelRequest();
 
     m_hRequest = WinHttpOpenRequest(m_hConnect, lpVerb, lpPagePath,
-        NULL, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_ESCAPE_PERCENT | WINHTTP_FLAG_REFRESH);
+        NULL, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_REFRESH);
     
     if (m_hRequest == NULL)
     {

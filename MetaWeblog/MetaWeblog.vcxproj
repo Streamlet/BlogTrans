@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Base64.cpp" />
     <ClCompile Include="Encoding.cpp" />
+    <ClCompile Include="HttpGet.cpp" />
     <ClCompile Include="HttpIO.cpp" />
     <ClCompile Include="ImgPicker.cpp" />
     <ClCompile Include="MetaWeblog.cpp" />
@@ -23,6 +24,7 @@
   <ItemGroup>
     <ClInclude Include="Base64.h" />
     <ClInclude Include="Encoding.h" />
+    <ClInclude Include="HttpGet.h" />
     <ClInclude Include="HttpIO.h" />
     <ClInclude Include="ImgPicker.h" />
     <ClInclude Include="MetaWeblog.h" />

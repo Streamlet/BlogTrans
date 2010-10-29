@@ -19,6 +19,7 @@
 
 #include "../MetaWeblog/MetaWeblog.h"
 #include "../MetaWeblog/ImgPicker.h"
+#include "../MetaWeblog/HttpGet.h"
 #include <Loki/ScopeGuard.h>
 
 #include <Windows.h>
@@ -104,7 +105,7 @@ int main()
         _tprintf(_T("Failed to connect server.\n"));
         _tprintf(_T("Press any key to quit...\n"));
         _getch();
-       return 0;
+        return 0;
     }
 
     _tprintf(_T("Connected!\n"));
@@ -167,6 +168,31 @@ int main()
         {
             xl::String strImgUrl(post.description.GetAddress() + it->nIndex, it->nLength);
             _tprintf(_T("%s\n"), strImgUrl.GetAddress());
+
+            HttpGet hg;
+            xl::Array<BYTE> arrData;
+
+            if (!hg.SendRequest(strImgUrl.GetAddress(), hEvent, &arrData))
+            {
+                continue;
+            }
+
+            xl::String strFileName = post.postid + _T("_") + strImgUrl.Right(strImgUrl.Length() - strImgUrl.LastIndexOf(_T("/")) - 1);
+            FILE *pFile = _tfopen(strFileName.GetAddress(), _T("wb"));
+
+            if (pFile == NULL)
+            {
+                continue;
+            }
+
+            LOKI_ON_BLOCK_EXIT(fclose, pFile);
+
+            if (fwrite(&arrData[0], 1, arrData.Size(), pFile) != arrData.Size())
+            {
+                continue;
+            }
+
+            _tprintf(_T("    Saved to %s\n"), strFileName.GetAddress());
         }
 
         _tprintf(_T("\n"));
