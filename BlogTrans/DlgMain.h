@@ -419,6 +419,12 @@ protected:
 
         PutMsg(_T("Blog information is valid."));
 
+        if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+        {
+            PutMsg(_T("User cancelled."));
+            return 0;
+        }
+        
         PutMsg(_T("Getting recent %u from source blog..."), m_nPostsNumber);
         SetProgressBarMarquee();
 
@@ -433,6 +439,12 @@ protected:
         PutMsg(_T("Totally got %u posts."), posts.Size());
         SetProgressBarNormal(100, posts.Size());
         StepProgressBar();
+
+        if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+        {
+            PutMsg(_T("User cancelled."));
+            return 0;
+        }
 
         for (auto it = posts.Begin(); it != posts.End(); ++it)
         {
@@ -520,6 +532,7 @@ protected:
                                 PutMsg(_T("Picture URL: %s"), mediaUrl.url.GetAddress());
                                 strImgUrl = mediaUrl.url;
                             }
+
                         } // if (!hg.SendRequest(strImgUrl.GetAddress(), m_hEventCancel, &arrData))
 
                         if (i != imgs.Size() - 1)
@@ -534,6 +547,12 @@ protected:
                         OffsetProgressBar(nImageUnit);
                         nProgressUnit -= nImageUnit;
 
+                        if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+                        {
+                            PutMsg(_T("User cancelled."));
+                            return 0;
+                        }
+
                     } // for (int i = 0; i < imgs.Size(); ++i)
 
                     post.description = strNewContent;
@@ -543,6 +562,12 @@ protected:
             } // if (m_bUploadPicture)
 
             OffsetProgressBar(nProgressUnit / 2);
+
+            if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+            {
+                PutMsg(_T("User cancelled."));
+                return 0;
+            }
 
             PutMsg(_T("Publishing to destination blog..."));
 
@@ -554,6 +579,14 @@ protected:
             }
 
             OffsetProgressBar(nProgressUnit - nProgressUnit / 2);
+
+            PutMsg(_T("Delay 5 seconds..."));
+
+            if (WaitForSingleObject(m_hEventCancel, 5000) == WAIT_OBJECT_0)
+            {
+                PutMsg(_T("User cancelled."));
+                return 0;
+            }
         }
         
         PutMsg(_T("Done. Please check the log for errors."));
