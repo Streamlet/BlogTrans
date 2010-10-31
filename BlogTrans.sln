@@ -8,21 +8,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlogTrans", "BlogTrans\BlogTrans.vcxproj", "{E9CB9324-18FD-46DE-9CCE-926767D8FC6E}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs08
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = MetaWeblog\\MetaWeblog.vcxproj
-		SccProjectName1 = MetaWeblog
-		SccLocalPath1 = MetaWeblog
-		SccProjectUniqueName2 = Test\\Test.vcxproj
-		SccProjectName2 = Test
-		SccLocalPath2 = Test
-		SccProjectUniqueName3 = BlogTrans\\BlogTrans.vcxproj
-		SccProjectName3 = BlogTrans
-		SccLocalPath3 = BlogTrans
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
