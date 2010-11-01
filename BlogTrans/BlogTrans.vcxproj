@@ -110,8 +110,8 @@
     <ResourceCompile Include="BlogTrans.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetaWeblog\MetaWeblog.vcxproj">
-      <Project>{ec8c9534-49f3-4b3f-942e-4f6acc06ac46}</Project>
+    <ProjectReference Include="..\Utility\Utility.vcxproj">
+      <Project>{d6ac4835-0f44-42b4-8c71-b483e4261fc3}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

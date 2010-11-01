@@ -22,9 +22,9 @@
 #include "IntegerBox.h"
 #include <ShellAPI.h>
 #include <Loki/ScopeGuard.h>
-#include "../MetaWeblog/MetaWeblog.h"
-#include "../MetaWeblog/ImgPicker.h"
-#include "../MetaWeblog/HttpGet.h"
+#include "../Utility/MetaWeblog.h"
+#include "../Utility/ImgPicker.h"
+#include "../Utility/HttpGet.h"
 
 
 class CDlgMain : public CDialogImpl<CDlgMain>,
