@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlogTrans", "BlogTrans\BlogTrans.vcxproj", "{E9CB9324-18FD-46DE-9CCE-926767D8FC6E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utility", "Utility\Utility.vcxproj", "{D6AC4835-0F44-42B4-8C71-B483E4261FC3}"
@@ -13,10 +11,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Debug|Win32.Build.0 = Debug|Win32
-		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Release|Win32.ActiveCfg = Release|Win32
-		{EC931FC2-01B9-4DD3-9FDD-F8DBE860603F}.Release|Win32.Build.0 = Release|Win32
 		{E9CB9324-18FD-46DE-9CCE-926767D8FC6E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E9CB9324-18FD-46DE-9CCE-926767D8FC6E}.Debug|Win32.Build.0 = Debug|Win32
 		{E9CB9324-18FD-46DE-9CCE-926767D8FC6E}.Release|Win32.ActiveCfg = Release|Win32

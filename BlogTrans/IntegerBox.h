@@ -38,7 +38,7 @@ public:
     }
 
 public:
-	int GetValue()
+    int GetValue()
     {
         CAtlString str;
         GetWindowText(str);
@@ -46,7 +46,7 @@ public:
         return _ttoi(str);
     }
 
-	void SetValue(int value)
+    void SetValue(int value)
     {
         CAtlString str;
         str.Format(_T("%d"), value);
@@ -55,7 +55,7 @@ public:
     }
 
 private:
-	LRESULT OnChar(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+    LRESULT OnChar(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
     {
         BYTE vkCode = (BYTE)wParam;
 
@@ -74,7 +74,7 @@ private:
         return TRUE;
     }
 
-	LRESULT StopMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+    LRESULT StopMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
     {
         return TRUE;
     }

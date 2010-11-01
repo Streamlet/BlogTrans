@@ -36,7 +36,7 @@ public:
     static xl::String Utf8ToString(const xl::StringA &strUtf8);
 
 private:
-	Encoding();
+    Encoding();
 };
 
 #endif // #ifndef __ENCODING_H_818FBE13_C7B5_4AB2_9B4B_7988CEBBE6A6_INCLUDED__
