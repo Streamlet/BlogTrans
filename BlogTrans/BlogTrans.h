@@ -30,6 +30,15 @@
 
 #include "resource.h"
 
+#include <xl/Containers/xlSet.h>
+#include <xl/Objects/xlString.h>
+
+struct GlobalVar
+{
+    xl::Set<xl::String> recentApiUrl;
+};
+
 extern CAppModule _Module;
+extern GlobalVar g;
 
 #endif // #ifndef __BLOGTRANS_H_510B76C5_6B2E_42F7_BFAF_1C28169ECB02_INCLUDED__

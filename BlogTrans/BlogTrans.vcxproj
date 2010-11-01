@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClInclude Include="BlogTrans.h" />
     <ClInclude Include="CommonControlImpl.h" />
+    <ClInclude Include="DlgBlogAccount.h" />
     <ClInclude Include="DlgMain.h" />
     <ClInclude Include="IntegerBox.h" />
     <ClInclude Include="Resource.h" />

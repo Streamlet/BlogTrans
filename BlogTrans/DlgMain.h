@@ -25,6 +25,7 @@
 #include "../Utility/MetaWeblog.h"
 #include "../Utility/ImgPicker.h"
 #include "../Utility/HttpGet.h"
+#include "DlgBlogAccount.h"
 
 
 class CDlgMain : public CDialogImpl<CDlgMain>,
@@ -174,6 +175,11 @@ public:
 
     LRESULT OnButtonStart(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
     {
+        BlogInformation bi;
+        bool bRet = CDlgBlogAccount::GetBlogInfo(&bi);
+
+        return TRUE;
+
         if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
         {
             if (BeforeEnterThread())

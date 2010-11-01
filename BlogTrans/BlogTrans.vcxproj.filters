@@ -41,6 +41,9 @@
     <ClInclude Include="IntegerBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DlgBlogAccount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

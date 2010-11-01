@@ -19,7 +19,7 @@
 #include "DlgMain.h"
 
 CAppModule _Module;
-
+GlobalVar g;
 
 int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
