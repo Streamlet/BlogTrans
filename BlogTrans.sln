@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlogTrans", "BlogTrans\Blog
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utility", "Utility\Utility.vcxproj", "{D6AC4835-0F44-42B4-8C71-B483E4261FC3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BTDViewer", "BTDViewer\BTDViewer.vcxproj", "{80EC9BE2-BC5E-47A5-8013-4420D40493CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{D6AC4835-0F44-42B4-8C71-B483E4261FC3}.Debug|Win32.Build.0 = Debug|Win32
 		{D6AC4835-0F44-42B4-8C71-B483E4261FC3}.Release|Win32.ActiveCfg = Release|Win32
 		{D6AC4835-0F44-42B4-8C71-B483E4261FC3}.Release|Win32.Build.0 = Release|Win32
+		{80EC9BE2-BC5E-47A5-8013-4420D40493CB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{80EC9BE2-BC5E-47A5-8013-4420D40493CB}.Debug|Win32.Build.0 = Debug|Win32
+		{80EC9BE2-BC5E-47A5-8013-4420D40493CB}.Release|Win32.ActiveCfg = Release|Win32
+		{80EC9BE2-BC5E-47A5-8013-4420D40493CB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
