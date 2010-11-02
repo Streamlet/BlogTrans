@@ -19,7 +19,10 @@
 
 #pragma warning(disable: 4996)
 
+#include <atlcom.h>
+#include <atlhost.h>
 #include <atlwin.h>
+#include <atlctl.h>
 
 #include "WTL/atlapp.h"
 #include "WTL/atlframe.h"

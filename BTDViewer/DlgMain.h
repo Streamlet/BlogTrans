@@ -17,10 +17,15 @@
 #define __DLGMAIN_H_C3FCED4E_9F91_4051_BDE3_8CAE0A0E4481_INCLUDED__
 
 
-#include "BTDViewer.h"
-#include "WebBrowser.h"
+#include <exdisp.h>
+#include <exdispid.h>
+#include <mshtml.h>
+#include <mshtmdid.h>
 
-class CDlgMain : public CDialogImpl<CDlgMain>,
+#include "BTDViewer.h"
+
+
+class CDlgMain : public CAxDialogImpl<CDlgMain>,
                  public CMessageFilter,
                  public CIdleHandler,
                  public CUpdateUI<CDlgMain>,
@@ -38,7 +43,7 @@ protected:
     HANDLE m_hWorkingThread;
     HANDLE m_hEventCancel;
     CRITICAL_SECTION m_cs;
-    WebBrowser m_wb;
+    CComPtr<IWebBrowser2> m_pWebBrowser2;
 
 public:
     CDlgMain()
@@ -72,6 +77,11 @@ public:
         COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
     END_MSG_MAP()
 
+//     BEGIN_SINK_MAP(CDlgMain)
+//         SINK_ENTRY_EX(IDC_EXPLORER, DIID_DWebBrowserEvents2, DISPID_DOCUMENTCOMPLETE, OnDocumentComplete) 
+//         SINK_ENTRY_EX(IDC_EXPLORER, DIID_DWebBrowserEvents2, DISPID_BEFORENAVIGATE2, OnBeforeNavigate2)
+//     END_SINK_MAP()
+
     // Handler prototypes (uncomment arguments if needed):
     //    LRESULT MessageHandler(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
     //    LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
@@ -99,13 +109,25 @@ public:
 
         UIAddChildWindowContainer(m_hWnd);
 
-//         m_wb.Create(m_hWnd);
+        CAxWindow axWin = GetDlgItem(IDC_EXPLORER);
+        axWin.QueryControl(&m_pWebBrowser2);
+
+        if (m_pWebBrowser2 == NULL)
+        {
+            return FALSE;
+        }
+
+        //WebBrowser::DispEventAdvise(m_pWebBrowser2);
+        m_pWebBrowser2->Navigate(CComBSTR("http://www.streamlet.org/"),NULL,NULL,NULL,NULL);
+
 
         return TRUE;
     }
 
     LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
     {
+        //WebBrowser::DispEventUnadvise(m_pWebBrowser2);
+
         // unregister message filtering and idle updates
         CMessageLoop* pLoop = _Module.GetMessageLoop();
         ATLASSERT(pLoop != NULL);
@@ -130,6 +152,18 @@ public:
 
         return TRUE;
     }
+
+//     void OnDocumentComplete(IDispatch *, VARIANT* )
+//     {
+//         MessageBox(_T("Document complete!"), _T("Info"), MB_OK|MB_ICONEXCLAMATION);
+//     }
+// 
+//     void OnBeforeNavigate2 (
+//         IDispatch* pDisp, VARIANT* URL, VARIANT* Flags, VARIANT* TargetFrameName,
+//         VARIANT* PostData, VARIANT* Headers, VARIANT_BOOL* Cancel )
+//     {
+//         MessageBox(_T("Before navigate!"), _T("Info"), MB_OK|MB_ICONEXCLAMATION);
+//     };
 };
 
 #endif // #ifndef __DLGMAIN_H_C3FCED4E_9F91_4051_BDE3_8CAE0A0E4481_INCLUDED__
