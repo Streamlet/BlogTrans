@@ -18,6 +18,7 @@
 
 
 #include "BTDViewer.h"
+#include "WebBrowser.h"
 
 class CDlgMain : public CDialogImpl<CDlgMain>,
                  public CMessageFilter,
@@ -37,6 +38,7 @@ protected:
     HANDLE m_hWorkingThread;
     HANDLE m_hEventCancel;
     CRITICAL_SECTION m_cs;
+    WebBrowser m_wb;
 
 public:
     CDlgMain()
@@ -96,6 +98,8 @@ public:
         pLoop->AddIdleHandler(this);
 
         UIAddChildWindowContainer(m_hWnd);
+
+//         m_wb.Create(m_hWnd);
 
         return TRUE;
     }
