@@ -112,7 +112,7 @@ void DlgMain::CreateControls()
 
 void DlgMain::SetTexts()
 {
-    SetWindowText(_T("Blog Transporter v1.0"));
+    SetWindowText(_T("Blog Transporter v1.1"));
 
     m_groupSource.SetWindowText(_T("Source Blog"));
     m_labelSourceUrl.SetWindowText(_T("MetaWeblog API URL:"));
