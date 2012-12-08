@@ -19,15 +19,15 @@
 
 #include <xl/Containers/xlArray.h>
 #include <xl/Containers/xlMap.h>
-#include <xl/Objects/xlString.h>
-#include <xl/Objects/xlQIPtr.h>
+#include <xl/String/xlString.h>
+#include <xl/Memory/xlSmartPtr.h>
 
 typedef unsigned char           Base64Byte;
 typedef xl::Array<Base64Byte>   Base64Bytes;
 typedef xl::Char                Base64Char;
 typedef xl::String              Base64String;
-typedef xl::QIPtr<Base64Bytes>  Base64BytesPtr;
-typedef xl::QIPtr<Base64String> Base64StringPtr;
+typedef xl::SharedPtr<Base64Bytes>  Base64BytesPtr;
+typedef xl::SharedPtr<Base64String> Base64StringPtr;
 
 class Base64
 {

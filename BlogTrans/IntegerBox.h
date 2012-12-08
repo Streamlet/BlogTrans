@@ -4,7 +4,7 @@
 //
 //    File Name:   IntegerBox.h
 //    Author:      Streamlet
-//    Create Time: 2009-12-13
+//    Create Time: 2011-12-18
 //    Description: 
 //
 //    Version history:
@@ -13,80 +13,28 @@
 //
 //------------------------------------------------------------------------------
 
-#ifndef __INTEGERBOX_H_CB571A0B_4C4F_4E98_A722_63AD4E7F1741_INCLUDED__
-#define __INTEGERBOX_H_CB571A0B_4C4F_4E98_A722_63AD4E7F1741_INCLUDED__
+#ifndef __INTEGERBOX_H_1909CEF5_194D_4AF0_B0CB_486D6E725632_INCLUDED__
+#define __INTEGERBOX_H_1909CEF5_194D_4AF0_B0CB_486D6E725632_INCLUDED__
 
 
-#pragma warning(disable: 4996)
+#include <xl/Win32/GUI/xlStdEdit.h>
 
-#include <atlbase.h>
-#include <atlstr.h>
-#include "WTL/atlapp.h"
-#include "WTL/atlctrls.h"
-
-class CIntegerBox : public CWindowImpl<CIntegerBox, CEdit>
+class IntegerBox : public xl::StdEdit
 {
 public:
-    CIntegerBox()
-    {
-
-    }
-
-    ~CIntegerBox()
-    {
-
-    }
+    IntegerBox();
+    ~IntegerBox();
 
 public:
-    int GetValue()
-    {
-        CAtlString str;
-        GetWindowText(str);
-
-        return _ttoi(str);
-    }
-
-    void SetValue(int value)
-    {
-        CAtlString str;
-        str.Format(_T("%d"), value);
-
-        SetWindowText(str);
-    }
+    int GetValue();
+    void SetValue(int nValue);
 
 private:
-    LRESULT OnChar(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-    {
-        BYTE vkCode = (BYTE)wParam;
-
-        if (((vkCode >= '0' && vkCode <= '9')
-            && !(GetKeyState(VK_SHIFT) & 0x8000))
-            || vkCode == VK_BACK
-            || vkCode == VK_DELETE
-            || vkCode == VK_LEFT
-            || vkCode == VK_RIGHT
-            || vkCode == VK_HOME
-            || vkCode == VK_END)
-        {
-            bHandled = FALSE;
-        }
-
-        return TRUE;
-    }
-
-    LRESULT StopMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-    {
-        return TRUE;
-    }
-
-private:
-    BEGIN_MSG_MAP(CIntegerBox)
-        MESSAGE_HANDLER(WM_CHAR, OnChar)
-        MESSAGE_HANDLER(WM_CONTEXTMENU, StopMessage)
-        MESSAGE_HANDLER(WM_KEYUP, StopMessage)
-        MESSAGE_HANDLER(WM_SYSKEYDOWN, StopMessage)
-        MESSAGE_HANDLER(WM_SYSKEYUP, StopMessage)
-    END_MSG_MAP()
+    // Message Map Handlers
+    // LRESULT OnMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+    LRESULT OnChar(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+    LRESULT Skip  (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 };
 
-#endif // #ifndef __INTEGERBOX_H_CB571A0B_4C4F_4E98_A722_63AD4E7F1741_INCLUDED__
+
+#endif // #ifndef __INTEGERBOX_H_1909CEF5_194D_4AF0_B0CB_486D6E725632_INCLUDED__

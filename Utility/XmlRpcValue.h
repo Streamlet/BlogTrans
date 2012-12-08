@@ -19,7 +19,7 @@
 
 #include <xl/Containers/xlArray.h>
 #include <xl/Containers/xlMap.h>
-#include <xl/Objects/xlString.h>
+#include <xl/String/xlString.h>
 #include <time.h>
 #include "XmlParser.h"
 

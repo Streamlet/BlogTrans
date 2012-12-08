@@ -18,7 +18,7 @@
 
 
 #include <xl/Containers/xlArray.h>
-#include <xl/Objects/xlString.h>
+#include <xl/String/xlString.h>
 #include <Windows.h>
 
 class HttpGet

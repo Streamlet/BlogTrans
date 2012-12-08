@@ -21,15 +21,15 @@
 #include <xl/Containers/xlList.h>
 #include <xl/Containers/xlPair.h>
 #include <xl/Containers/xlMap.h>
-#include <xl/Objects/xlString.h>
-#include <xl/Objects/xlQIPtr.h>
+#include <xl/String/xlString.h>
+#include <xl/Memory/xlSmartPtr.h>
 
 typedef xl::Char XmlChar;
 typedef xl::String XmlString;
 class XmlNode;
 class XmlInst;
-typedef xl::QIPtr<XmlNode> XmlNodePtr;
-typedef xl::QIPtr<XmlInst> XmlInstPtr;
+typedef xl::SharedPtr<XmlNode> XmlNodePtr;
+typedef xl::SharedPtr<XmlInst> XmlInstPtr;
 typedef xl::List<XmlNodePtr> XmlNodeList;
 typedef xl::List<XmlInstPtr> XmlInstList;
 typedef xl::Pair<XmlString, XmlString> XmlProperty;

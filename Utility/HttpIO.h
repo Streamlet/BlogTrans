@@ -19,8 +19,7 @@
 
 #include <xl/Containers/xlArray.h>
 #include <xl/Containers/xlMap.h>
-#include <xl/Objects/xlString.h>
-#include <xl/Objects/xlQIPtr.h>
+#include <xl/String/xlString.h>
 #include <Windows.h>
 #include <WinHttp.h>
 

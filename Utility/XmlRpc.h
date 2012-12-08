@@ -19,7 +19,7 @@
 
 #include <Windows.h>
 #include <xl/Containers/xlArray.h>
-#include <xl/Objects/xlString.h>
+#include <xl/String/xlString.h>
 #include "HttpIO.h"
 #include "XmlRpcValue.h"
 #include "XmlParser.h"

@@ -20,9 +20,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -35,21 +32,18 @@
     <ClInclude Include="DlgMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CommonControlImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IntegerBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgBlogAccount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="BlogTrans.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BlogTrans.cpp">
+    <ClCompile Include="DlgMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntegerBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

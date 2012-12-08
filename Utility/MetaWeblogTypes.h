@@ -17,8 +17,8 @@
 #define __METAWEBLOGDS_H_773930DC_B57E_435C_AD77_4E6C95E3121C_INCLUDED__
 
 
-#include <xl/Objects/xlString.h>
-#include <xl/Objects/xlQIPtr.h>
+#include <xl/String/xlString.h>
+#include <xl/Memory/xlSmartPtr.h>
 
 
 struct BlogInfo
@@ -28,7 +28,7 @@ struct BlogInfo
     xl::String blogName;
 };
 
-typedef xl::QIPtr<BlogInfo> BlogInfoPtr;
+typedef xl::SharedPtr<BlogInfo> BlogInfoPtr;
 
 struct Enclosure
 {
@@ -37,7 +37,7 @@ struct Enclosure
     xl::String url;
 };
 
-typedef xl::QIPtr<Enclosure> EnclosurePtr;
+typedef xl::SharedPtr<Enclosure> EnclosurePtr;
 
 struct Source
 {
@@ -45,7 +45,7 @@ struct Source
     xl::String url;
 };
 
-typedef xl::QIPtr<Source> SourcePtr;
+typedef xl::SharedPtr<Source> SourcePtr;
 
 struct Post
 {
@@ -67,7 +67,7 @@ struct Post
     }
 };
 
-typedef xl::QIPtr<Post> PostPtr;
+typedef xl::SharedPtr<Post> PostPtr;
 
 struct CategoryInfo
 {
@@ -78,7 +78,7 @@ struct CategoryInfo
     xl::String categoryid;
 };
 
-typedef xl::QIPtr<CategoryInfo> CategoryInfoPtr;
+typedef xl::SharedPtr<CategoryInfo> CategoryInfoPtr;
 
 struct MediaObject
 {
@@ -87,14 +87,14 @@ struct MediaObject
     xl::Array<unsigned char> bits;
 };
 
-typedef xl::QIPtr<MediaObject> MediaObjectPtr;
+typedef xl::SharedPtr<MediaObject> MediaObjectPtr;
 
 struct MediaObjectUrl
 {
     xl::String url;
 };
 
-typedef xl::QIPtr<MediaObjectUrl> MediaObjectUrlPtr;
+typedef xl::SharedPtr<MediaObjectUrl> MediaObjectUrlPtr;
 
 
 #endif // #ifndef __METAWEBLOGDS_H_773930DC_B57E_435C_AD77_4E6C95E3121C_INCLUDED__
