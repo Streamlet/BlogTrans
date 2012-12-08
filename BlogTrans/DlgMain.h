@@ -28,6 +28,7 @@
 #include <xl/Win32/GUI/xlStdLink.h>
 #include <xl/Win32/GUI/xlStdProgressBar.h>
 #include <xl/Win32/Threads/xlCriticalSection.h>
+#include <xl/Win32/Threads/xlThread.h>
 #include "../Utility/MetaWeblog.h"
 #include "../Utility/ImgPicker.h"
 #include "../Utility/HttpGet.h"
@@ -74,8 +75,7 @@ private:
     void SetProgressBarNormal(int nStep, int nSteps);
     void StepProgressBar();
     void OffsetProgressBar(int nOffset);
-    DWORD ThreadProc();
-    static DWORD WINAPI StaticThreadProc(LPVOID lpThreadParameter);
+    DWORD ThreadProc(HANDLE hQuit, LPVOID lpParam);
 
 protected:
     xl::StdButton       m_groupSource;
@@ -101,9 +101,8 @@ protected:
     xl::StdLink         m_link;
 
 protected:
-    HANDLE m_hWorkingThread;
-    HANDLE m_hEventCancel;
     xl::CriticalSection m_cs;
+    xl::Thread<> m_thread;
 
 protected:
     xl::String m_strSourceUrl;

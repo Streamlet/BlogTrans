@@ -45,17 +45,14 @@ void DlgMain::ShowDialog()
 }
 
 DlgMain::DlgMain()
-    : m_hWorkingThread(NULL), m_hEventCancel(NULL)
 {
-    m_hEventCancel = CreateEvent(NULL, TRUE, TRUE, NULL);
-
     AppendCommandMsgHandler(ID_BUTTON_START, CommandMsgHandler(this, &DlgMain::OnButtonStart));
     AppendNotifyMsgHandler(ID_SYSLINK, NM_CLICK, NotifyMsgHandler(this, &DlgMain::OnButtonStart));
 }
 
 DlgMain::~DlgMain()
 {
-    CloseHandle(m_hEventCancel);
+
 }
 
 bool DlgMain::OnInitDialog()
@@ -77,7 +74,7 @@ bool DlgMain::OnOK()
 
 bool DlgMain::OnCancel()
 {
-    if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+    if (m_thread.Wait(0))
     {
         return true;
     }
@@ -137,12 +134,11 @@ void DlgMain::SetTexts()
 
 LRESULT DlgMain::OnButtonStart(HWND hWnd, WORD wID, WORD wCode, HWND hControl, BOOL &bHandled)
 {
-    if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+    if (m_thread.Wait(0))
     {
         if (BeforeEnterThread())
         {
-            ResetEvent(m_hEventCancel);
-            m_hWorkingThread = CreateThread(NULL, 0, StaticThreadProc, (LPVOID)this, 0, NULL);
+            m_thread.Create(xl::Thread<>::ProcType(this, &DlgMain::ThreadProc), nullptr);
         }
     }
     else
@@ -152,12 +148,7 @@ LRESULT DlgMain::OnButtonStart(HWND hWnd, WORD wID, WORD wCode, HWND hControl, B
             return 0;
         }
 
-        if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
-        {
-            return 0;
-        }
-
-        SetEvent(m_hEventCancel);
+        m_thread.NotifyStop();
     }
 
     return 0;
@@ -230,12 +221,6 @@ void DlgMain::BeforeExitThread()
     m_buttonStart.EnableWindow(FALSE);
     m_cs.UnLock();
 
-    if (m_hWorkingThread != NULL)
-    {
-        CloseHandle(m_hWorkingThread);
-        m_hWorkingThread = NULL;
-    }
-
     SetProgressBarNormal(0, 0);
 
     m_buttonStart.SetWindowText(_T("Start"));
@@ -249,7 +234,7 @@ void DlgMain::BeforeExitThread()
     m_checkUploadPicture.EnableWindow();
     m_buttonStart.EnableWindow();
 
-    SetEvent(m_hEventCancel);
+    m_thread.NotifyStop();
 }
 
 void DlgMain::PutMsg(LPCTSTR lpFormat, ...)
@@ -290,7 +275,7 @@ void DlgMain::OffsetProgressBar(int nOffset)
     m_process.OffsetPos(nOffset);
 }
 
-DWORD DlgMain::ThreadProc()
+DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
 {
     XL_ON_BLOCK_EXIT(this, &DlgMain::BeforeExitThread);
 
@@ -300,7 +285,7 @@ DWORD DlgMain::ThreadProc()
     m_buttonStart.EnableWindow(TRUE);
     m_cs.UnLock();
 
-    MetaWeblog srcBlog(m_hEventCancel);
+    MetaWeblog srcBlog(hQuit);
 
     PutMsg(_T("Checking source blog..."));
     SetProgressBarMarquee();
@@ -337,7 +322,7 @@ DWORD DlgMain::ThreadProc()
     PutMsg(_T("Blog Name: %s"), srcBlogInfo.blogName.GetAddress());;
     PutMsg(_T("Blog URL: %s"), srcBlogInfo.url.GetAddress());;
 
-    MetaWeblog destBlog(m_hEventCancel);
+    MetaWeblog destBlog(hQuit);
 
     PutMsg(_T("Checking dest blog..."));
     SetProgressBarMarquee();
@@ -376,7 +361,7 @@ DWORD DlgMain::ThreadProc()
 
     PutMsg(_T("Blog information is valid."));
 
-    if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+    if (WaitForSingleObject(hQuit, 0) == WAIT_OBJECT_0)
     {
         PutMsg(_T("User cancelled."));
         return 0;
@@ -397,7 +382,7 @@ DWORD DlgMain::ThreadProc()
     SetProgressBarNormal(100, posts.Size());
     StepProgressBar();
 
-    if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+    if (WaitForSingleObject(hQuit, 0) == WAIT_OBJECT_0)
     {
         PutMsg(_T("User cancelled."));
         return 0;
@@ -438,7 +423,7 @@ DWORD DlgMain::ThreadProc()
 
                     HttpGet hg;
 
-                    if (!hg.SendRequest(strImgUrl.GetAddress(), m_hEventCancel, &arrData))
+                    if (!hg.SendRequest(strImgUrl.GetAddress(), hQuit, &arrData))
                     {
                         PutMsg(_T("Failed to download picture."));
                     }
@@ -505,7 +490,7 @@ DWORD DlgMain::ThreadProc()
                     OffsetProgressBar(nImageUnit);
                     nProgressUnit -= nImageUnit;
 
-                    if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+                    if (WaitForSingleObject(hQuit, 0) == WAIT_OBJECT_0)
                     {
                         PutMsg(_T("User cancelled."));
                         return 0;
@@ -521,7 +506,7 @@ DWORD DlgMain::ThreadProc()
 
         OffsetProgressBar(nProgressUnit / 2);
 
-        if (WaitForSingleObject(m_hEventCancel, 0) == WAIT_OBJECT_0)
+        if (WaitForSingleObject(hQuit, 0) == WAIT_OBJECT_0)
         {
             PutMsg(_T("User cancelled."));
             return 0;
@@ -540,7 +525,7 @@ DWORD DlgMain::ThreadProc()
 
         PutMsg(_T("Delay 5 seconds..."));
 
-        if (WaitForSingleObject(m_hEventCancel, 5000) == WAIT_OBJECT_0)
+        if (WaitForSingleObject(hQuit, 5000) == WAIT_OBJECT_0)
         {
             PutMsg(_T("User cancelled."));
             return 0;
@@ -550,9 +535,4 @@ DWORD DlgMain::ThreadProc()
     PutMsg(_T("Done. Please check the log for errors."));
 
     return 0;
-}
-
-DWORD WINAPI DlgMain::StaticThreadProc(LPVOID lpThreadParameter)
-{
-    return ((DlgMain *)lpThreadParameter)->ThreadProc();
 }
