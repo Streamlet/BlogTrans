@@ -107,7 +107,7 @@ void DlgMain::CreateControls()
     m_editPostsNumber    .Create(ID_EDIT_POSTS_NUMBER,    this, 126, 254, 100, 21);
     m_checkUploadPicture .Create(ID_CHECK_UPLOAD_PICTURE, this, 248, 256, 206, 16,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_AUTOCHECKBOX);
 
-    m_editMessage        .Create(ID_EDIT_MESSAGE,         this, 10,  280, 454, 180, WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL);
+    m_editMessage        .Create(ID_EDIT_MESSAGE,         this, 10,  284, 454, 176, WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL);
     m_process            .Create(ID_PROGRESS,             this, 10,  472, 360, 24);
     m_buttonStart        .Create(ID_BUTTON_START,         this, 384, 472, 80,  24);
     m_link               .Create(ID_SYSLINK,              this, 10,  510, 454, 18);
