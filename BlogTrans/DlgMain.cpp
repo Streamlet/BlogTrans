@@ -69,7 +69,7 @@ bool DlgMain::OnInitDialog()
 
 bool DlgMain::OnOK()
 {
-    return true;
+    return false;
 }
 
 bool DlgMain::OnCancel()
@@ -418,6 +418,47 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
                 {
                     xl::String strImgUrl = post.description.SubString(imgs[i].nIndex, imgs[i].nLength);
                     xl::Array<BYTE> arrData;
+
+                    if (strImgUrl.IndexOf(_T("http://")) != 0 && strImgUrl.IndexOf(_T("https://")) != 0)
+                    {
+                        if (strImgUrl[0] == _T('/'))
+                        {
+                            int nPos = post.link.IndexOf(_T("://"));
+
+                            if (nPos >= 0)
+                            {
+                                nPos += 3;
+                            }
+                            else
+                            {
+                                nPos = 0;
+                            }
+
+                            nPos = post.link.IndexOf(_T("/"), nPos);
+
+                            if (nPos >= 0)
+                            {
+                                strImgUrl = post.link.Left(nPos) + strImgUrl;
+                            }
+                            else
+                            {
+                                strImgUrl = post.link + _T("/") + strImgUrl;
+                            }
+                        }
+                        else
+                        {
+                            int nPos = post.link.LastIndexOf(_T("/"));
+
+                            if (nPos >= 0)
+                            {
+                                strImgUrl = post.link.Left(nPos + 1) + strImgUrl;
+                            }
+                            else
+                            {
+                                strImgUrl = post.link + _T("/") + strImgUrl;
+                            }
+                        }
+                    }
 
                     PutMsg(_T("Downloading %s ..."), strImgUrl.GetAddress());
 
