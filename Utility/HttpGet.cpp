@@ -45,14 +45,14 @@ bool HttpGet::SendRequest(LPCTSTR lpUrl, HANDLE hEventCancel, xl::Array<BYTE> *p
     xl::String strPagePath = xl::String(urlComp.lpszUrlPath, urlComp.dwUrlPathLength) +
                              xl::String(urlComp.lpszExtraInfo, urlComp.dwExtraInfoLength);
     
-    HttpIO http(m_strAgent.GetAddress());
+    HttpIO http(m_strAgent);
 
-    if (!http.Connect(strHostName.GetAddress()))
+    if (!http.Connect(strHostName))
     {
         return false;
     }
 
-    if (!http.SendRequest(L"GET", strPagePath.GetAddress(), NULL, NULL, 0, hEventCancel, pContent))
+    if (!http.SendRequest(L"GET", strPagePath, NULL, NULL, 0, hEventCancel, pContent))
     {
         return false;
     }

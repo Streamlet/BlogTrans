@@ -17,8 +17,8 @@
 #define __METAWEBLOGDS_H_773930DC_B57E_435C_AD77_4E6C95E3121C_INCLUDED__
 
 
-#include <xl/String/xlString.h>
-#include <xl/Memory/xlSmartPtr.h>
+#include <xl/Common/String/xlString.h>
+#include <xl/Common/Memory/xlSmartPtr.h>
 
 
 struct BlogInfo

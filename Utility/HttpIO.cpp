@@ -16,7 +16,7 @@
 
 #include "HttpIO.h"
 #include <tchar.h>
-#include <Loki/ScopeGuard.h>
+#include <xl/Common/Meta/xlScopeExit.h>
 #pragma comment(lib, "WinHttp.lib")
 
 HttpIO::HttpIO(LPCTSTR lpAgent /*= NULL*/)
@@ -77,7 +77,7 @@ bool HttpIO::Connect(LPCTSTR lpHost, INTERNET_PORT nPort /*= INTERNET_DEFAULT_PO
 
     Disconnect();
 
-    m_hSession = WinHttpOpen(m_strAgent.GetAddress(),
+    m_hSession = WinHttpOpen(m_strAgent,
                               WINHTTP_ACCESS_TYPE_NO_PROXY,
                               WINHTTP_NO_PROXY_NAME,
                               WINHTTP_NO_PROXY_BYPASS,
@@ -142,7 +142,7 @@ bool HttpIO::SendRequest(LPCTSTR lpVerb,
         return false;
     }
 
-    LOKI_ON_BLOCK_EXIT_OBJ(*this, &HttpIO::CancelRequest);
+    XL_ON_BLOCK_EXIT(this, &HttpIO::CancelRequest);
 
     if (!WinHttpSendRequest(m_hRequest,
                             lpExtraHeader,
@@ -227,7 +227,7 @@ bool HttpIO::SendRequest(LPCTSTR lpVerb,
                 return false;
             }
 
-            pContent->InsertBuffer(pContent->Size(), BUFFER, dwBytesToRead);
+            pContent->Insert(pContent->Size(), BUFFER, dwBytesToRead);
 
             m_dwBytesAvailable -= m_dwBytesRead;
         }

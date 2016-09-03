@@ -15,6 +15,7 @@
 
 #include "targetver.h"
 #include "DlgMain.h"
+#include <tchar.h>
 
 enum
 {
@@ -40,14 +41,14 @@ enum
 void DlgMain::ShowDialog()
 {
     DlgMain dlg;
-    dlg.Create(480, 560);
+    dlg.Create(nullptr, 480, 560);
     dlg.DoModal();
 }
 
 DlgMain::DlgMain()
 {
     AppendCommandMsgHandler(ID_BUTTON_START, CommandMsgHandler(this, &DlgMain::OnButtonStart));
-    AppendNotifyMsgHandler(ID_SYSLINK, NM_CLICK, NotifyMsgHandler(this, &DlgMain::OnButtonStart));
+    AppendNotifyMsgHandler(ID_SYSLINK, NM_CLICK, NotifyMsgHandler(this, &DlgMain::OnLinkWebsite));
 }
 
 DlgMain::~DlgMain()
@@ -84,30 +85,30 @@ bool DlgMain::OnCancel()
 
 void DlgMain::CreateControls()
 {
-    m_groupSource        .Create(ID_STATIC,               this, 10,  10,  454, 112,  WS_CHILD | WS_VISIBLE | BS_GROUPBOX);
-    m_labelSourceUrl     .Create(ID_STATIC,               this, 20,  32,  434, 16);
-    m_editSourceUrl      .Create(ID_EDIT_SOURCE_URL,      this, 20,  56,  434, 21);
-    m_labelSourceUserName.Create(ID_STATIC,               this, 20,  90,  72,  16);
-    m_editSourceUserName .Create(ID_EDIT_SOURCE_USERNAME, this, 92,  88,  134, 21);
-    m_labelSourcePassword.Create(ID_STATIC,               this, 248, 90,  72,  16);
-    m_editSourcePassword .Create(ID_EDIT_SOURCE_PASSWORD, this, 320, 88,  134, 21,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_AUTOHSCROLL | ES_PASSWORD);
+    m_groupSource        .Create(m_hWnd, ID_STATIC,               10,  10,  454, 112,  WS_CHILD | WS_VISIBLE | BS_GROUPBOX);
+    m_labelSourceUrl     .Create(m_hWnd, ID_STATIC,               20,  32,  434, 16);
+    m_editSourceUrl      .Create(m_hWnd, ID_EDIT_SOURCE_URL,      20,  56,  434, 21);
+    m_labelSourceUserName.Create(m_hWnd, ID_STATIC,               20,  90,  72,  16);
+    m_editSourceUserName .Create(m_hWnd, ID_EDIT_SOURCE_USERNAME, 92,  88,  134, 21);
+    m_labelSourcePassword.Create(m_hWnd, ID_STATIC,               248, 90,  72,  16);
+    m_editSourcePassword .Create(m_hWnd, ID_EDIT_SOURCE_PASSWORD, 320, 88,  134, 21,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_AUTOHSCROLL | ES_PASSWORD);
 
-    m_groupDest          .Create(ID_STATIC,               this, 10,  132, 454, 112, WS_CHILD | WS_VISIBLE | BS_GROUPBOX);
-    m_labelDestUrl       .Create(ID_STATIC,               this, 20,  154, 434, 16);
-    m_editDestUrl        .Create(ID_EDIT_DEST_URL,        this, 20,  178, 434, 21);
-    m_labelDestUserName  .Create(ID_STATIC,               this, 20,  212, 72,  16);
-    m_editDestUserName   .Create(ID_EDIT_DEST_USERNAME,   this, 92,  214, 134, 21);
-    m_labelDestPassword  .Create(ID_STATIC,               this, 248, 212, 72,  16);
-    m_editDestPassword   .Create(ID_EDIT_DEST_PASSWORD,   this, 320, 214, 134, 21,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_AUTOHSCROLL | ES_PASSWORD);
+    m_groupDest          .Create(m_hWnd, ID_STATIC,               10,  132, 454, 112, WS_CHILD | WS_VISIBLE | BS_GROUPBOX);
+    m_labelDestUrl       .Create(m_hWnd, ID_STATIC,               20,  154, 434, 16);
+    m_editDestUrl        .Create(m_hWnd, ID_EDIT_DEST_URL,        20,  178, 434, 21);
+    m_labelDestUserName  .Create(m_hWnd, ID_STATIC,               20,  212, 72,  16);
+    m_editDestUserName   .Create(m_hWnd, ID_EDIT_DEST_USERNAME,   92,  214, 134, 21);
+    m_labelDestPassword  .Create(m_hWnd, ID_STATIC,               248, 212, 72,  16);
+    m_editDestPassword   .Create(m_hWnd, ID_EDIT_DEST_PASSWORD,   320, 214, 134, 21,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_AUTOHSCROLL | ES_PASSWORD);
 
-    m_labelPostsNumber   .Create(ID_STATIC,               this, 20,  256, 106, 16);
-    m_editPostsNumber    .Create(ID_EDIT_POSTS_NUMBER,    this, 126, 254, 100, 21);
-    m_checkUploadPicture .Create(ID_CHECK_UPLOAD_PICTURE, this, 248, 256, 206, 16,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_AUTOCHECKBOX);
+    m_labelPostsNumber   .Create(m_hWnd, ID_STATIC,               20,  256, 106, 16);
+    m_editPostsNumber    .Create(m_hWnd, ID_EDIT_POSTS_NUMBER,    126, 254, 100, 21);
+    m_checkUploadPicture .Create(m_hWnd, ID_CHECK_UPLOAD_PICTURE, 248, 256, 206, 16,  WS_CHILD | WS_VISIBLE | WS_TABSTOP | BS_AUTOCHECKBOX);
 
-    m_editMessage        .Create(ID_EDIT_MESSAGE,         this, 10,  284, 454, 176, WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL);
-    m_process            .Create(ID_PROGRESS,             this, 10,  472, 360, 24);
-    m_buttonStart        .Create(ID_BUTTON_START,         this, 384, 472, 80,  24);
-    m_link               .Create(ID_SYSLINK,              this, 10,  510, 454, 18);
+    m_editMessage        .Create(m_hWnd, ID_EDIT_MESSAGE,         10,  284, 454, 176, WS_CHILD | WS_VISIBLE | WS_TABSTOP | ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL);
+    m_process            .Create(m_hWnd, ID_PROGRESS,             10,  472, 360, 24);
+    m_buttonStart        .Create(m_hWnd, ID_BUTTON_START,         384, 472, 80,  24);
+    m_link               .Create(m_hWnd, ID_SYSLINK,              10,  510, 454, 18);
 }
 
 void DlgMain::SetTexts()
@@ -138,7 +139,7 @@ LRESULT DlgMain::OnButtonStart(HWND hWnd, WORD wID, WORD wCode, HWND hControl, B
     {
         if (BeforeEnterThread())
         {
-            m_thread.Create(xl::Thread<>::ProcType(this, &DlgMain::ThreadProc), nullptr);
+            m_thread.Create(xl::Windows::Thread<>::ProcType(this, &DlgMain::ThreadProc), nullptr);
         }
     }
     else
@@ -154,7 +155,7 @@ LRESULT DlgMain::OnButtonStart(HWND hWnd, WORD wID, WORD wCode, HWND hControl, B
     return 0;
 }
 
-LRESULT DlgMain::OnLinkWebsite(HWND hWnd, UINT_PTR uID, UINT uCode, HWND hControl, BOOL &bHandled)
+LRESULT DlgMain::OnLinkWebsite(HWND hWnd, LPNMHDR lpNMHDR, BOOL &bHandled)
 {
     ShellExecute(NULL, _T("open"), _T("http://www.streamlet.org/"), NULL, NULL, SW_SHOWNORMAL);
     return 0;
@@ -290,7 +291,7 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
     PutMsg(_T("Checking source blog..."));
     SetProgressBarMarquee();
 
-    if (!srcBlog.Connect(m_strSourceUrl.GetAddress(), m_strSourceUserName.GetAddress(), m_strSourcePassword.GetAddress()))
+    if (!srcBlog.Connect(m_strSourceUrl, m_strSourceUserName, m_strSourcePassword))
     {
         PutMsg(_T("Failed to connect to source blog."));
         return 0;
@@ -318,16 +319,16 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
         return 0;
     }
 
-    PutMsg(_T("Blog ID: %s"), srcBlogInfo.blogid.GetAddress());;
-    PutMsg(_T("Blog Name: %s"), srcBlogInfo.blogName.GetAddress());;
-    PutMsg(_T("Blog URL: %s"), srcBlogInfo.url.GetAddress());;
+    PutMsg(_T("Blog ID: %s"), (LPCTSTR)srcBlogInfo.blogid);
+    PutMsg(_T("Blog Name: %s"), (LPCTSTR)srcBlogInfo.blogName);
+    PutMsg(_T("Blog URL: %s"), (LPCTSTR)srcBlogInfo.url);
 
     MetaWeblog destBlog(hQuit);
 
     PutMsg(_T("Checking dest blog..."));
     SetProgressBarMarquee();
 
-    if (!destBlog.Connect(m_strDestUrl.GetAddress(), m_strDestUserName.GetAddress(), m_strDestPassword.GetAddress()))
+    if (!destBlog.Connect(m_strDestUrl, m_strDestUserName, m_strDestPassword))
     {
         PutMsg(_T("Failed to connect to destination blog."));
         return 0;
@@ -355,9 +356,9 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
         return 0;
     }
 
-    PutMsg(_T("Blog ID: %s"), destBlogInfo.blogid.GetAddress());;
-    PutMsg(_T("Blog Name: %s"), destBlogInfo.blogName.GetAddress());;
-    PutMsg(_T("Blog URL: %s"), destBlogInfo.url.GetAddress());;
+    PutMsg(_T("Blog ID: %s"), (LPCTSTR)destBlogInfo.blogid);
+    PutMsg(_T("Blog Name: %s"), (LPCTSTR)destBlogInfo.blogName);
+    PutMsg(_T("Blog URL: %s"), (LPCTSTR)destBlogInfo.url);
 
     PutMsg(_T("Blog information is valid."));
 
@@ -392,7 +393,7 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
     {
         auto post = **it;
 
-        PutMsg(_T("Solving post [%s]: %s"), post.postid.GetAddress(), post.title.GetAddress());
+        PutMsg(_T("Solving post [%s]: %s"), (LPCTSTR)post.postid, (LPCTSTR)post.title);
 
         int nProgressUnit = 100;
 
@@ -460,15 +461,15 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
                         }
                     }
 
-                    PutMsg(_T("Downloading %s ..."), strImgUrl.GetAddress());
+                    PutMsg(_T("Downloading %s ..."), (LPCTSTR)strImgUrl);
 
                     HttpGet hg;
 
-                    if (!hg.SendRequest(strImgUrl.GetAddress(), hQuit, &arrData))
+                    if (!hg.SendRequest(strImgUrl, hQuit, &arrData))
                     {
                         PutMsg(_T("Failed to download picture."));
                     }
-                    else // if (!hg.SendRequest(strImgUrl.GetAddress(), m_hEventCancel, &arrData))
+                    else // if (!hg.SendRequest(strImgUrl, m_hEventCancel, &arrData))
                     {
                         PutMsg(_T("Uploading picture to destination blog....."));
 
@@ -513,11 +514,11 @@ DWORD DlgMain::ThreadProc(HANDLE hQuit, LPVOID lpParam)
                         }
                         else
                         {
-                            PutMsg(_T("Picture URL: %s"), mediaUrl.url.GetAddress());
+                            PutMsg(_T("Picture URL: %s"), (LPCTSTR)mediaUrl.url);
                             strImgUrl = mediaUrl.url;
                         }
 
-                    } // if (!hg.SendRequest(strImgUrl.GetAddress(), m_hEventCancel, &arrData))
+                    } // if (!hg.SendRequest(strImgUrl, m_hEventCancel, &arrData))
 
                     if (i != imgs.Size() - 1)
                     {

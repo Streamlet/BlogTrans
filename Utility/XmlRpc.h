@@ -18,8 +18,8 @@
 
 
 #include <Windows.h>
-#include <xl/Containers/xlArray.h>
-#include <xl/String/xlString.h>
+#include <xl/Common/Containers/xlArray.h>
+#include <xl/Common/String/xlString.h>
 #include "HttpIO.h"
 #include "XmlRpcValue.h"
 #include "XmlParser.h"

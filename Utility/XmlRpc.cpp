@@ -28,7 +28,7 @@
 #define XML_RPC_FAULT           L"fault"
 
 XmlRpc::XmlRpc(const xl::String &strUserAgent /*= L"XmlRpcClient"*/)
-    : m_bConnected(false), m_http(strUserAgent.GetAddress())
+    : m_bConnected(false), m_http(strUserAgent)
 {
 
 }
@@ -46,7 +46,7 @@ bool XmlRpc::SetApiUrl(const xl::String &strUrl)
     urlComp.dwUrlPathLength   = (DWORD)-1;
     urlComp.dwExtraInfoLength = (DWORD)-1;
 
-    if (!WinHttpCrackUrl(strUrl.GetAddress(), 0, 0, &urlComp))
+    if (!WinHttpCrackUrl(strUrl, 0, 0, &urlComp))
     {
         return false;
     }
@@ -62,7 +62,7 @@ bool XmlRpc::Connect()
 {
     Disconnect();
 
-    if (!m_http.Connect(m_strHostName.GetAddress()))
+    if (!m_http.Connect(m_strHostName))
     {
         return false;
     }
@@ -97,8 +97,8 @@ bool XmlRpc::ExecuteMethod(const xl::String &strMethodName,
 
     xl::Array<BYTE> arrResponse;
 
-    if (!m_http.SendRequest(L"POST", m_strPagePath.GetAddress(), NULL,
-        (LPVOID)strRequestUtf8.GetAddress(), strRequestUtf8.Length(), hEventCancel, &arrResponse))
+    if (!m_http.SendRequest(L"POST", m_strPagePath, NULL,
+        (LPVOID)(const CHAR *)strRequestUtf8, strRequestUtf8.Length(), hEventCancel, &arrResponse))
     {
         return false;
     }

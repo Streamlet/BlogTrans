@@ -17,8 +17,8 @@
 #define __IMGPICKER_H_952954BA_28B8_41DA_9173_4881EB074782_INCLUDED__
 
 
-#include <xl/Containers/xlArray.h>
-#include <xl/String/xlString.h>
+#include <xl/Common/Containers/xlArray.h>
+#include <xl/Common/String/xlString.h>
 #include "ImgPicker.h"
 
 struct ImgItem

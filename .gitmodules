@@ -1,0 +1,9 @@
+[submodule "External/xlLib"]
+	path = External/xlLib
+	url = https://github.com/Streamlet/xlLib.git
+[submodule "VSProps"]
+	path = VSProps
+	url = https://github.com/Streamlet/VSProps.git
+[submodule "External/ZLibWrap"]
+	path = External/ZLibWrap
+	url = https://github.com/Streamlet/ZLibWrap.git

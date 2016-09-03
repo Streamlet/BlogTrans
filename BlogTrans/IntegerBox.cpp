@@ -14,9 +14,10 @@
 //------------------------------------------------------------------------------
 
 
-#include <xl/Memory/xlMemory.h>
-#include <xl/Win32/Memory/xlSafeSmartPtr.h>
+#include <xl/Common/Memory/xlMemory.h>
+#include <xl/Windows/Memory/xlSafeSmartPtr.h>
 #include "IntegerBox.h"
+#include <tchar.h>
 
 
 IntegerBox::IntegerBox()
@@ -44,7 +45,7 @@ int IntegerBox::GetValue()
         return 0;
     }
 
-    xl::SafeSharedArray<TCHAR> spText = new TCHAR[nLength];
+    xl::Windows::SafeSharedArray<TCHAR> spText = new TCHAR[nLength];
     GetWindowText(spText.RawPointer(), nLength);
 
     return _ttoi(spText.RawPointer());

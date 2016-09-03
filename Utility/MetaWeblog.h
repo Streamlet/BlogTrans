@@ -20,7 +20,7 @@
 #include <Windows.h>
 #include "MetaWebLogTypes.h"
 #include "XmlRpc.h"
-#include <xl/Containers/xlArray.h>
+#include <xl/Common/Containers/xlArray.h>
 
 class MetaWeblog
 {

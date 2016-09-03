@@ -482,7 +482,7 @@ bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
         xl::String strValue = pValueNode->GetValue();
 
         XmlRpcInt nValue;
-        _stscanf(strValue.GetAddress(), _T("%d"), &nValue);
+        _stscanf((const TCHAR *)strValue, _T("%d"), &nValue);
 
         SetIntValue(nValue);
     }
@@ -503,7 +503,7 @@ bool XmlRpcValue::FromXml(const XmlNodePtr &pNode)
         xl::String strValue = pValueNode->GetValue();
 
         XmlRpcDouble lfValue;
-        _stscanf(strValue.GetAddress(), _T("%lf"), &lfValue);
+        _stscanf((const TCHAR *)strValue, _T("%lf"), &lfValue);
 
         SetDoubleValue(lfValue);
     }

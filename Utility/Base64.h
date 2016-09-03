@@ -17,10 +17,10 @@
 #define __BASE64_H_4BE77292_183C_4343_A33D_FC9AA85E6D77_INCLUDED__
 
 
-#include <xl/Containers/xlArray.h>
-#include <xl/Containers/xlMap.h>
-#include <xl/String/xlString.h>
-#include <xl/Memory/xlSmartPtr.h>
+#include <xl/Common/Containers/xlArray.h>
+#include <xl/Common/Containers/xlMap.h>
+#include <xl/Common/String/xlString.h>
+#include <xl/Common/Memory/xlSmartPtr.h>
 
 typedef unsigned char           Base64Byte;
 typedef xl::Array<Base64Byte>   Base64Bytes;

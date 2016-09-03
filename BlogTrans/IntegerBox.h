@@ -17,9 +17,9 @@
 #define __INTEGERBOX_H_1909CEF5_194D_4AF0_B0CB_486D6E725632_INCLUDED__
 
 
-#include <xl/Win32/GUI/xlStdEdit.h>
+#include <xl/Windows/GUI/xlStdEdit.h>
 
-class IntegerBox : public xl::StdEdit
+class IntegerBox : public xl::Windows::StdEdit
 {
 public:
     IntegerBox();

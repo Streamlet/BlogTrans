@@ -21,8 +21,8 @@
 
 #include "resource.h"
 
-#include <xl/Containers/xlSet.h>
-#include <xl/String/xlString.h>
+#include <xl/Common/Containers/xlSet.h>
+#include <xl/Common/String/xlString.h>
 
 struct GlobalVar
 {

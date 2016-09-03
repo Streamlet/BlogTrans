@@ -17,8 +17,8 @@
 #define __HTTPGET_H_9427F415_86D0_49DD_B1E9_C22AD416CBC9_INCLUDED__
 
 
-#include <xl/Containers/xlArray.h>
-#include <xl/String/xlString.h>
+#include <xl/Common/Containers/xlArray.h>
+#include <xl/Common/String/xlString.h>
 #include <Windows.h>
 
 class HttpGet
